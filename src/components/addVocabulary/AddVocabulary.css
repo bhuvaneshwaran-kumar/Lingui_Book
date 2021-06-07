@@ -1,0 +1,48 @@
+#form-add-vocab {
+  max-width: 600px;
+  margin: auto;
+  /* border: 1px solid white; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+input[type="text"] {
+  width: 90%;
+  margin: auto;
+  margin-top: 5px;
+  padding: 10px;
+  outline: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+}
+input::-webkit-calendar-picker-indicator {
+  display: none;
+}
+textarea {
+  width: 90%;
+  min-height: 200px;
+  /* max-height: 500px; */
+  margin: auto;
+  margin-top: 5px;
+  padding: 10px;
+  outline: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+}
+button {
+  display: inline;
+  background-color: aqua;
+  border: none;
+  margin-top: 10px;
+  width: 20%;
+  font-weight: 600;
+  padding: 10px 0px;
+  border-radius: 5px;
+  align-self: center;
+  outline: none;
+}
+button:focus {
+  outline: none;
+}

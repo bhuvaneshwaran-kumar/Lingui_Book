@@ -1,0 +1,32 @@
+.navbar-nav-icon-bottom {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  border-radius: 5px;
+  /* margin-top: calc(var(--nav-size) * 0.1); */
+  background-color: var(--bg);
+  padding: 10px;
+  display: none;
+}
+.navbar-btom-btn {
+  cursor: pointer;
+  transition: filter;
+  user-select: none;
+}
+.navbar-btom-btn:hover {
+  filter: brightness(1.5);
+  color: white;
+}
+.bottom-Nav {
+  /* border: 1px solid green; */
+  /* display: flex; */
+  flex-direction: column;
+  text-align: right;
+}
+.bottom-Nav li {
+  margin: 4px 0;
+  transition: opacity 300ms;
+}
+.bottom-Nav li:hover {
+  opacity: 0.5;
+}

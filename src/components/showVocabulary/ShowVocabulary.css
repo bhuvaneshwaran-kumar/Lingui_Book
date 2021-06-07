@@ -1,0 +1,88 @@
+#vocab-grid {
+  display: grid;
+  margin: 2px;
+  margin-top: 5px;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  grid-auto-rows: 200px;
+}
+.vocab-card {
+  align-self: flex-start;
+  display: flex;
+  height: 100%;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+
+  /* border: 1px solid white; */
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom: 1px solid #007580;
+  overflow: hidden;
+}
+.vocab-card .label {
+  font-weight: 600;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  padding: 10px 0;
+  background-color: #007580;
+  letter-spacing: 05px;
+  word-spacing: 10px;
+}
+.vocab-card .words {
+  margin-top: 5px;
+  width: 100%;
+  /* height: 100%; */
+  overflow-y: hidden;
+  font-size: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.vocab-card .words li {
+  list-style: none;
+  margin: 10px 10px;
+  padding: 5px 10px;
+  border-radius: 15px;
+}
+.vocab-card .words li:nth-child(1) {
+  border: 1px solid #9fe6a0;
+}
+.vocab-card .words li:nth-child(2) {
+  border: 1px solid #ffd56b;
+}
+.vocab-card .words li:nth-child(3) {
+  border: 1px solid #f55c47;
+}
+.vocab-card .words li:nth-child(4) {
+  border: 1px solid #ededd0;
+}
+.vocab-card .words li:nth-child(5) {
+  border: 1px solid #e1701a;
+}
+.vocab-card .words li:nth-child(6) {
+  border: 1px solid #3f3697;
+}
+.vocab-card .words li:nth-child(7) {
+  border: 1px solid #766161;
+}
+.vocab-card .words li:nth-child(8) {
+  border: 1px solid #206a5d;
+}
+.vocab-card .words li:nth-child(9) {
+  border: 1px solid #eeebdd;
+}
+.vocab-card .words li:nth-child(10) {
+  border: 1px solid #7b113a;
+}
+.vocab-card .words li:nth-child(11) {
+  border: 1px solid #ffcc29;
+}
+.vocab-card .words li:nth-child(12) {
+  border: 1px solid #ffe268;
+}
+.grid-toll {
+  grid-row: span 2 / auto;
+}

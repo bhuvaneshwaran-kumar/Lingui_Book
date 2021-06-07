@@ -1,0 +1,95 @@
+.ShowSpecificVocabulary {
+  width: 100%;
+}
+
+.ShowSpecificVocabulary h3 {
+  padding: 10px;
+  margin: 0;
+  background-color: #007580;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  text-align: center;
+  word-wrap: break-word;
+}
+.specific-words {
+  width: 100%;
+  padding: 10px;
+  background-color: #222831;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.specific-words li {
+  list-style: none;
+  margin: 1px 10px;
+  padding: 7px 10px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.specific-word-meaning {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+.specific-word-meaning .row {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-bottom: 10px;
+  /* border-radius: 15px; */
+}
+
+.specific-word-meaning .row .top {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: #484a4d;
+  padding: 10px;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.specific-word-meaning .row .top li {
+  list-style: none;
+  font-weight: 600;
+  /* border: 1px solid goldenrod; */
+}
+.specific-word-meaning .row p {
+  color: white;
+  width: 90%;
+  margin: 0 auto;
+  word-wrap: break-word;
+  font-size: 16px;
+}
+
+.alter-voc {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.alter-voc .edit,
+.alter-voc .delete {
+  cursor: pointer;
+  transition: all 300ms ease-in;
+}
+.alter-voc .edit:hover {
+  color: green;
+  transform: scale(1.3, 1.3);
+}
+.alter-voc .delete:hover {
+  color: red;
+  transform: scale(1.3, 1.3);
+}
+.span-inc {
+  grid-row: span 2 / auto;
+}
+@media screen and (max-width: 400px) {
+  .specific-word-meaning .row {
+    width: 100%;
+    min-height: 200px;
+  }
+  .specific-word-meaning {
+    row-gap: 0;
+  }
+}
