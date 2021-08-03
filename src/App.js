@@ -1,10 +1,14 @@
-import { useEffect } from 'react';
+import { useEffect ,useState} from 'react';
 import {auth} from './firebase'
 import {useDispatch, useSelector} from 'react-redux'
 import {setUser} from './actions/index'
-
+import {LinearProgress} from '@material-ui/core'
+import Nav from './components/Nav'
 
 function App() {
+
+  const [loading,setLoading] = useState(true)
+
 
   const user = useSelector((store)=>store.user)
   const dispatch = useDispatch()
@@ -15,8 +19,11 @@ function App() {
   },[user])
 
 
+
   useEffect(()=>{
-    const unsubscribe = auth.onAuthStateChanged((user)=>{
+    const unsubscribe = auth.
+    onAuthStateChanged((user)=>{
+      setLoading(true)
       if(user){
         console.log('user is successfully loggedIn')
         const data = {
@@ -26,14 +33,22 @@ function App() {
           photoURL : user.photoURL,
         }
         dispatch(setUser(data))
-      } 
+      }else{
+        dispatch(setUser(null))
+      }
+      setLoading(false)
     })
     return unsubscribe
   },[dispatch])
 
   return (
     <>
-      Hello World
+      {
+        loading && <LinearProgress/>
+      }
+      {
+        !loading && user && <Nav/>
+      }
     </>
   );
 }
