@@ -8,12 +8,20 @@ import '../css/Nav.css'
 import imageLogo from './Bhuvan_Logo.png'
 
 import { useSelector } from 'react-redux'
+import useFireStore from '../hooks/useFireStore'
 
 
 function Nav() {
 
     const user = useSelector(store => store.user)
-    console.log(user)
+    const { logOut } = useFireStore()
+
+
+
+    const handleLogOut = () => {
+        console.log('logging out the user')
+        logOut()
+    }
 
     return (
         <div className="nav">
@@ -56,7 +64,7 @@ function Nav() {
                         <BookmarkOutlinedIcon />
                     </IconButton>
                 </Tooltip>
-                <Tooltip title="Logout?" arrow>
+                <Tooltip title="Logout?" arrow onClick={handleLogOut}>
                     <IconButton style={{ color: 'black' }}>
                         <SettingsPowerOutlinedIcon />
                     </IconButton>

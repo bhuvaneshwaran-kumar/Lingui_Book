@@ -1,0 +1,25 @@
+.login {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+.login__main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-transform: none !important;
+  padding: 0.4rem;
+  z-index: 2;
+  background-color: white;
+}
+.login__welcomeText {
+  user-select: none;
+  opacity: 0;
+  margin: 1rem 0;
+  transition: all 500ms ease-in-out;
+}
+.login__welcomeText.active {
+  opacity: 1;
+  margin: 1rem 0;
+}

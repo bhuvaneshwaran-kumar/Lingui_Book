@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {setUser} from './actions/index'
 import {LinearProgress} from '@material-ui/core'
 import Nav from './components/Nav'
+import Login from './components/Login'
 
 function App() {
 
@@ -20,6 +21,8 @@ function App() {
 
 
 
+
+  // will listen to user auth events.
   useEffect(()=>{
     const unsubscribe = auth.
     onAuthStateChanged((user)=>{
@@ -43,9 +46,17 @@ function App() {
 
   return (
     <>
+      {/* if loading is set true then show the progress bar.*/}
       {
         loading && <LinearProgress/>
       }
+
+      {/* if loading is set false and user is null then ask user to Login*/}
+      {
+        !loading && !user && <Login/>
+      }
+
+      {/* if loading is set false and user is exist then show Navbar*/}
       {
         !loading && user && <Nav/>
       }
