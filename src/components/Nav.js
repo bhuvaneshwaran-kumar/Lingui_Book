@@ -23,10 +23,7 @@ function Nav() {
     const { logOut } = useFireStore()
 
 
-    const handleShowProfile = () => {
-        console.log('opening add voc.')
-        setDrawerOpen(prev => !prev)
-    }
+    const handleShowProfile = () => setDrawerOpen(prev => !prev)
 
     const handleLogOut = () => {
         console.log('logging out the user')
