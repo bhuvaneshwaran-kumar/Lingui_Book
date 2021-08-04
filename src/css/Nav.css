@@ -1,7 +1,7 @@
 .nav {
   display: flex;
-  justify-content: center;
-  padding: 0.2rem 0.2rem;
+  justify-content: space-around;
+  padding: 0 0.2rem;
   align-items: center;
   border-bottom: 1px solid lightgray;
   background-color: white;
@@ -20,20 +20,18 @@
 .nav .nav__right {
   user-select: none;
   cursor: pointer;
-  align-self: flex-start;
-  /* border: 1px solid black; */
+  display: flex;
+  align-items: center;
 }
 
 .nav .nav__middle {
   flex: 1;
-  height: 2.5rem;
-  max-width: 700px;
-  padding: 0 0.2rem;
+  max-width: 600px;
+  padding: 0.3rem 0.2rem;
   display: flex;
   align-items: center;
   background-color: rgba(227, 230, 231, 0.637);
   border-radius: 10px;
-  transition: width 1000ms ease;
 }
 .nav__searchInput {
   border: none;
