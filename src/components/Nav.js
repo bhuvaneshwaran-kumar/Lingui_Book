@@ -11,23 +11,29 @@ import '../css/Nav.css'
 import { useSelector } from 'react-redux'
 import useFireStore from '../hooks/useFireStore'
 
+import AddVocabulary from './AddVocabulary'
 
 function Nav() {
 
     const [drawerOpen, setDrawerOpen] = useState(false)
 
-
+    const [isAddVocabularyOpen, setIsAddVocabularyOpen] = useState(false)
 
     const user = useSelector(store => store.user)
     const { logOut } = useFireStore()
 
 
-    const handleShowProfile = () => setDrawerOpen(prev => !prev)
+    const handleShowProfile = () => {
+        console.log('opening add voc.')
+        setDrawerOpen(prev => !prev)
+    }
 
     const handleLogOut = () => {
         console.log('logging out the user')
         logOut()
     }
+
+    const handleAddVocabulary = () => setIsAddVocabularyOpen(prev => !prev)
 
     return (
         <div className="nav">
@@ -60,7 +66,7 @@ function Nav() {
 
             {/* Right side Nav */}
             <div className="nav__right">
-                <NavList handleShowProfile={handleShowProfile} handleLogOut={handleLogOut} user={user} />
+                <NavList handleShowProfile={handleShowProfile} handleLogOut={handleLogOut} user={user} handleAddVocabulary={handleAddVocabulary} />
             </div>
 
             {/* Drawer Container. */}
@@ -71,10 +77,15 @@ function Nav() {
                 onOpen={() => setDrawerOpen(true)}
             >
                 <div className="nav__drawer">
-                    <NavList handleShowProfile={handleShowProfile} handleLogOut={handleLogOut} user={user} column={true} />
+                    <NavList handleShowProfile={handleShowProfile} handleLogOut={handleLogOut} user={user} column={true} handleAddVocabulary={handleAddVocabulary} />
                 </div>
 
             </SwipeableDrawer>
+
+            {/* Add Vocabulary Modal. */}
+            {
+                isAddVocabularyOpen && <AddVocabulary isAddVocabularyOpen={isAddVocabularyOpen} handleColseVocabulary={handleAddVocabulary} />
+            }
         </div>
     )
 }
