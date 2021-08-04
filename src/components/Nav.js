@@ -1,14 +1,10 @@
 import React, { useState } from 'react'
-import { Tooltip, Avatar, IconButton, Typography } from '@material-ui/core'
+import { Tooltip, IconButton, Typography } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
-import HomeIcon from '@material-ui/icons/Home'
-import BookmarkOutlinedIcon from '@material-ui/icons/BookmarkOutlined';
-import SettingsPowerOutlinedIcon from '@material-ui/icons/SettingsPowerOutlined';
-import AddCircleOutlineSharpIcon from '@material-ui/icons/AddCircleOutlineSharp';
 import MenuIcon from '@material-ui/icons/Menu';
-import MenuCloseIcon from '@material-ui/icons/MenuOpen';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 
+import NavList from './NavList'
 
 import '../css/Nav.css'
 
@@ -64,31 +60,7 @@ function Nav() {
 
             {/* Right side Nav */}
             <div className="nav__right">
-                <Tooltip title="Profile" arrow onClick={handleShowProfile}>
-                    <IconButton>
-                        <Avatar src={user?.photoURL} style={{ width: '1.7rem', height: '1.7rem' }} />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Home" arrow>
-                    <IconButton style={{ color: 'black' }}>
-                        <HomeIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Home" arrow>
-                    <IconButton style={{ color: 'black' }}>
-                        <AddCircleOutlineSharpIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Saved" arrow>
-                    <IconButton style={{ color: 'black' }}>
-                        <BookmarkOutlinedIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Logout?" arrow onClick={handleLogOut}>
-                    <IconButton style={{ color: 'black' }}>
-                        <SettingsPowerOutlinedIcon />
-                    </IconButton>
-                </Tooltip>
+                <NavList handleShowProfile={handleShowProfile} handleLogOut={handleLogOut} user={user} />
             </div>
 
             {/* Drawer Container. */}
@@ -99,36 +71,7 @@ function Nav() {
                 onOpen={() => setDrawerOpen(true)}
             >
                 <div className="nav__drawer">
-                    <Tooltip title="close" arrow onClick={handleShowProfile} >
-                        <IconButton>
-                            <MenuCloseIcon style={{ color: 'black' }} />
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Profile" arrow onClick={handleShowProfile}>
-                        <IconButton>
-                            <Avatar src={user?.photoURL} style={{ width: '1.7rem', height: '1.7rem' }} />
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Home" arrow>
-                        <IconButton style={{ color: 'black' }}>
-                            <HomeIcon />
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Add" arrow>
-                        <IconButton style={{ color: 'black' }}>
-                            <AddCircleOutlineSharpIcon />
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Saved" arrow>
-                        <IconButton style={{ color: 'black' }}>
-                            <BookmarkOutlinedIcon />
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Logout?" arrow onClick={handleLogOut}>
-                        <IconButton style={{ color: 'black' }}>
-                            <SettingsPowerOutlinedIcon />
-                        </IconButton>
-                    </Tooltip>
+                    <NavList handleShowProfile={handleShowProfile} handleLogOut={handleLogOut} user={user} column={true} />
                 </div>
 
             </SwipeableDrawer>
