@@ -42,8 +42,14 @@
   width: 100%;
 }
 
+.nav__drawer {
+  display: flex;
+  flex-direction: column;
+}
+
 @media (max-width: 767px) {
-  .nav__logoText {
+  .nav__logoText,
+  .nav .nav__right {
     display: none;
   }
 }

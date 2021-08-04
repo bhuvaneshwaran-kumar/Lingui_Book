@@ -26,7 +26,7 @@ function Login() {
     return (
         <div className="login">
             <div className="login__main">
-                <img src={imageLogo} />
+                <img src={imageLogo} alt="logo" />
                 <Typography variant="h5" className="login__welcomeText" ref={welcomeTextRef}>
                     Welcome&nbsp;to
                     &nbsp;

@@ -24,8 +24,7 @@ function App() {
 
   // will listen to user auth events.
   useEffect(()=>{
-    const unsubscribe = auth.
-    onAuthStateChanged((user)=>{
+    const unsubscribe = auth.onAuthStateChanged((user)=>{
       setLoading(true)
       if(user){
         console.log('user is successfully loggedIn')
