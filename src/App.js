@@ -1,64 +1,76 @@
-import { useEffect ,useState} from 'react';
-import {auth} from './firebase'
-import {useDispatch, useSelector} from 'react-redux'
-import {setUser} from './actions/index'
-import {LinearProgress} from '@material-ui/core'
+import { useEffect, useState } from 'react';
+import { auth } from './firebase'
+import { useDispatch, useSelector } from 'react-redux'
+import { setUser } from './actions/index'
+import { LinearProgress } from '@material-ui/core'
 import Nav from './components/Nav'
 import Login from './components/Login'
-
+import HomePage from './components/HomePage'
+import { Switch, Route } from 'react-router-dom'
 function App() {
 
-  const [loading,setLoading] = useState(true)
+  const [loading, setLoading] = useState(true)
 
 
-  const user = useSelector((store)=>store.user)
+  const user = useSelector((store) => store.user)
   const dispatch = useDispatch()
-  
 
-  useEffect(()=>{
-    console.log(user?.name+' is logged in')
-  },[user])
+
+  useEffect(() => {
+    console.log(user?.name + ' is logged in')
+  }, [user])
 
 
 
 
   // will listen to user auth events.
-  useEffect(()=>{
-    const unsubscribe = auth.onAuthStateChanged((user)=>{
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       setLoading(true)
-      if(user){
+      if (user) {
         console.log('user is successfully loggedIn')
         const data = {
-          uid : user.uid,
-          name : user.displayName,
-          email : user.email,
-          photoURL : user.photoURL,
+          uid: user.uid,
+          name: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
         }
         dispatch(setUser(data))
-      }else{
+      } else {
         dispatch(setUser(null))
       }
       setLoading(false)
     })
     return unsubscribe
-  },[dispatch])
+  }, [dispatch])
 
   return (
     <>
       {/* if loading is set true then show the progress bar.*/}
       {
-        loading && <LinearProgress/>
+        loading && <LinearProgress />
       }
 
       {/* if loading is set false and user is null then ask user to Login*/}
       {
-        !loading && !user && <Login/>
+        !loading && !user && <Login />
       }
 
       {/* if loading is set false and user is exist then show Navbar*/}
       {
-        !loading && user && <Nav/>
+        !loading && user && <Nav />
       }
+      {/* Routing Starts */}
+      {
+        user && <Switch>
+          <Route path="/" exact>
+            <HomePage />
+          </Route>
+
+
+        </Switch>
+      }
+
     </>
   );
 }

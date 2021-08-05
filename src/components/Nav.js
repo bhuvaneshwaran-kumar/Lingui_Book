@@ -3,20 +3,19 @@ import { Tooltip, IconButton, Typography } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
 import MenuIcon from '@material-ui/icons/Menu';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-
+import { Snackbar } from '@material-ui/core'
 import NavList from './NavList'
-
 import '../css/Nav.css'
 
 import { useSelector } from 'react-redux'
 import useFireStore from '../hooks/useFireStore'
 
-import AddVocabulary from './AddVocabulary'
+import AddVocabularyModal from './AddVocabularyModal'
 
 function Nav() {
 
     const [drawerOpen, setDrawerOpen] = useState(false)
-
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false)
     const [isAddVocabularyOpen, setIsAddVocabularyOpen] = useState(false)
 
     const user = useSelector(store => store.user)
@@ -36,7 +35,6 @@ function Nav() {
     }
     return (
         <div className="nav">
-
             {/* Left Nav */}
             <div className="nav__left">
                 {/* Profile */}
@@ -83,7 +81,17 @@ function Nav() {
 
             {/* Add Vocabulary Modal. */}
             {
-                isAddVocabularyOpen && <AddVocabulary isAddVocabularyOpen={isAddVocabularyOpen} handleColseVocabulary={handleToggleAddVocabulary} />
+                isAddVocabularyOpen && <AddVocabularyModal isAddVocabularyOpen={isAddVocabularyOpen} handleColseVocabulary={handleToggleAddVocabulary} setShowSuccessMessage={setShowSuccessMessage} />
+            }
+            {/* Show Success Message. if(vocabulary-added-firestore🔥)  */}
+            {
+                <Snackbar
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                    open={showSuccessMessage}
+                    autoHideDuration='2500'
+                    onClose={() => setShowSuccessMessage(false)}
+                    message='Post Added SuccessFully'
+                />
             }
         </div>
     )
