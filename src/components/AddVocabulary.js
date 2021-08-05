@@ -1,16 +1,22 @@
 import React from 'react'
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, TextareaAutosize } from '@material-ui/core'
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@material-ui/core'
 
 function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary }) {
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("hiii")
+    }
+
+
     return (
-        <form>
-
-
-            <Dialog aria-labelledby="form-dialog-title"
-                open={true}
-                onClose={handleColseVocabulary}
-            >
-                <DialogTitle id="form-dialog-title">Add Vocabulary.</DialogTitle>
+        <Dialog aria-labelledby="form-dialog-title"
+            open={true}
+            onClose={handleColseVocabulary}
+        >
+            <DialogTitle id="form-dialog-title">Add Vocabulary 📑</DialogTitle>
+            <form onSubmit={handleSubmit} autoComplete='off' >
                 <DialogContent>
                     <DialogContentText>
                         imporve your vocabulary by publishing in Note Gram.
@@ -19,28 +25,39 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary }) {
                         required
                         autoFocus
                         margin="dense"
-                        id="name"
+                        name="word"
                         label="Enter The Word"
                         type="text"
+                        helperText="the word"
                         fullWidth
                     />
                     <TextField
                         required
                         margin="dense"
-                        id="name"
+                        name="tag"
                         label="Give a Tag"
                         type="text"
                         fullWidth
+                        helperText="the tag"
+
                     />
-                    <TextareaAutosize
+                    <TextField
                         required
-                        style={{ width: '100%', resize: 'none', minHeight: '3rem' }}
-                        placeholder="Enter the meaning or reference"
+                        margin="dense"
+                        name="meaning"
+                        label="Enter the meaning of the word"
+                        fullWidth
+                        multiline
+                        helperText="the meaning"
                     />
-                    <TextareaAutosize
+
+                    <TextField
                         required
-                        style={{ width: '100%', resize: 'none', minHeight: '3rem' }}
-                        placeholder="Enter the word in sentence"
+                        fullWidth
+                        name="example"
+                        multiline
+                        label="real time example"
+                        helperText="Real time example."
                     />
                 </DialogContent>
                 <DialogActions>
@@ -51,8 +68,9 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary }) {
                         Post
                     </Button>
                 </DialogActions>
-            </Dialog>
-        </form>
+            </form>
+        </Dialog>
+
     )
 }
 
