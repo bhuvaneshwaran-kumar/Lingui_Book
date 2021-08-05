@@ -1,18 +1,18 @@
-import { auth, provider } from "../firebase"
+import { auth, provider, db } from "../firebase"
 
 const useFireStore = () => {
 
-    const logIn = () => {
-        console.log('hi')
-        return auth.signInWithPopup(provider)
+    const logIn = () => auth.signInWithPopup(provider)
+
+    const logOut = () => auth.signOut()
+
+    const addVocabulary = (data) => {
+        return db.collection(`${data.privacyType}`).add(data)
     }
 
-    const logOut = () => {
-        return auth.signOut()
-    }
 
     return {
-        logIn, logOut
+        logIn, logOut, addVocabulary
     }
 
 }

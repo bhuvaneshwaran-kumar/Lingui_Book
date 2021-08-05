@@ -5,11 +5,11 @@ import BookmarkOutlinedIcon from '@material-ui/icons/BookmarkOutlined';
 import SettingsPowerOutlinedIcon from '@material-ui/icons/SettingsPowerOutlined';
 import AddCircleOutlineSharpIcon from '@material-ui/icons/AddCircleOutlineSharp';
 
-function NavList({ handleShowProfile, handleLogOut, user, column, handleAddVocabulary }) {
+function NavList({ handleLogOut, user, column, handleToggleAddVocabulary }) {
     const flexDirection = column ? 'column' : 'row'
     return (
         <div style={{ display: 'flex', flexDirection: flexDirection }}>
-            <Tooltip title="Profile" arrow onClick={handleShowProfile}>
+            <Tooltip title="Profile" arrow>
                 <IconButton>
                     <Avatar src={user?.photoURL} style={{ width: '1.7rem', height: '1.7rem' }} />
                 </IconButton>
@@ -19,7 +19,7 @@ function NavList({ handleShowProfile, handleLogOut, user, column, handleAddVocab
                     <HomeIcon />
                 </IconButton>
             </Tooltip>
-            <Tooltip title="Add" arrow onClick={handleAddVocabulary}>
+            <Tooltip title="Add" arrow onClick={handleToggleAddVocabulary}>
                 <IconButton style={{ color: 'black' }}>
                     <AddCircleOutlineSharpIcon />
                 </IconButton>

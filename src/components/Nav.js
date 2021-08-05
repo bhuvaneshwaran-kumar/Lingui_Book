@@ -23,22 +23,24 @@ function Nav() {
     const { logOut } = useFireStore()
 
 
-    const handleShowProfile = () => setDrawerOpen(prev => !prev)
+    const handleToggleSideNav = () => setDrawerOpen(prev => !prev)
 
     const handleLogOut = () => {
         console.log('logging out the user')
         logOut()
     }
 
-    const handleAddVocabulary = () => setIsAddVocabularyOpen(prev => !prev)
-
+    const handleToggleAddVocabulary = () => {
+        setDrawerOpen(false)
+        setIsAddVocabularyOpen(prev => !prev)
+    }
     return (
         <div className="nav">
 
             {/* Left Nav */}
             <div className="nav__left">
                 {/* Profile */}
-                <Tooltip title="Profile" arrow onClick={handleShowProfile}>
+                <Tooltip title="Profile" arrow onClick={handleToggleSideNav}>
                     <IconButton>
                         <MenuIcon style={{ color: 'black' }} />
                     </IconButton>
@@ -63,25 +65,25 @@ function Nav() {
 
             {/* Right side Nav */}
             <div className="nav__right">
-                <NavList handleShowProfile={handleShowProfile} handleLogOut={handleLogOut} user={user} handleAddVocabulary={handleAddVocabulary} />
+                <NavList handleLogOut={handleLogOut} user={user} handleToggleAddVocabulary={handleToggleAddVocabulary} />
             </div>
 
             {/* Drawer Container. */}
 
             <SwipeableDrawer
                 open={drawerOpen}
-                onClose={handleShowProfile}
+                onClose={handleToggleSideNav}
                 onOpen={() => setDrawerOpen(true)}
             >
                 <div className="nav__drawer">
-                    <NavList handleShowProfile={handleShowProfile} handleLogOut={handleLogOut} user={user} column={true} handleAddVocabulary={handleAddVocabulary} />
+                    <NavList handleLogOut={handleLogOut} user={user} column={true} handleToggleAddVocabulary={handleToggleAddVocabulary} />
                 </div>
 
             </SwipeableDrawer>
 
             {/* Add Vocabulary Modal. */}
             {
-                isAddVocabularyOpen && <AddVocabulary isAddVocabularyOpen={isAddVocabularyOpen} handleColseVocabulary={handleAddVocabulary} />
+                isAddVocabularyOpen && <AddVocabulary isAddVocabularyOpen={isAddVocabularyOpen} handleColseVocabulary={handleToggleAddVocabulary} />
             }
         </div>
     )

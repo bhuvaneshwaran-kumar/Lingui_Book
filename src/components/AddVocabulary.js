@@ -1,12 +1,41 @@
-import React from 'react'
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@material-ui/core'
+import React, { useRef } from 'react'
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, FormControlLabel, Checkbox } from '@material-ui/core'
+import { serverTimeStamp } from '../firebase'
+import { useSelector } from 'react-redux'
+import useFireStore from '../hooks/useFireStore'
 
 function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary }) {
 
+    const formRef = useRef()
+
+    const user = useSelector(store => store.user)
+
+    const { addVocabulary } = useFireStore()
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("hiii")
+        let privacy = formRef.current.privacy.checked ? formRef.current.privacy.value : 'private'
+        const data = {
+            word: formRef.current.word.value,
+            tag: formRef.current.tag.value,
+            meaning: formRef.current.meaning.value,
+            example: formRef.current.example.value,
+            createdAt: serverTimeStamp(),
+            uid: user.uid,
+            createrName: user.name,
+            createrPhotoURL: user.photoURL,
+            privacyType: privacy
+        }
+        addVocabulary(data)
+            .then((docs) => {
+                data.docId = docs.id
+                console.table(data)
+                // push to redux home page data store.
+                handleColseVocabulary()
+            })
+            .catch(err => console.error(err.message))
+
+
     }
 
 
@@ -14,9 +43,10 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary }) {
         <Dialog aria-labelledby="form-dialog-title"
             open={true}
             onClose={handleColseVocabulary}
+            disableBackdropClick
         >
             <DialogTitle id="form-dialog-title">Add Vocabulary 📑</DialogTitle>
-            <form onSubmit={handleSubmit} autoComplete='off' >
+            <form onSubmit={handleSubmit} autoComplete='off' ref={formRef} >
                 <DialogContent>
                     <DialogContentText>
                         imporve your vocabulary by publishing in Note Gram.
@@ -58,6 +88,13 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary }) {
                         multiline
                         label="real time example"
                         helperText="Real time example."
+                    />
+                    <FormControlLabel
+                        value="public"
+                        control={<Checkbox name="privacy" defaultChecked color="primary" />}
+                        label="public"
+                        labelPlacement="end"
+
                     />
                 </DialogContent>
                 <DialogActions>
