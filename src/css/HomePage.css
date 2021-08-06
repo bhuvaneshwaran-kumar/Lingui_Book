@@ -44,6 +44,10 @@
   background-color: #719fb0;
   color: #dddddd;
 }
+.home__cardRow.bottom {
+  justify-content: space-between;
+  cursor: pointer;
+}
 pre {
   /* border: 1px solid black; */
   margin: 0 !important;

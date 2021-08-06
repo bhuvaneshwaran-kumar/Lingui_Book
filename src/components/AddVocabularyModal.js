@@ -1,14 +1,16 @@
 import React, { useRef, useReducer } from 'react'
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, FormControlLabel, Checkbox } from '@material-ui/core'
 import { serverTimeStamp } from '../firebase'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import useFireStore from '../hooks/useFireStore'
-
+import { updateHomePageByPrepand } from '../actions/index'
 
 
 function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSuccessMessage }) {
 
     const formRef = useRef()
+
+    const dispatchRedux = useDispatch()
 
     // 1.Default Value 2.Reducer 3.useReducerHook.
     let errorDefaultValue = {
@@ -52,7 +54,11 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
                     exampleLength: action.payLoad
                 }
             case 'RESET_ERROR':
-                return errorDefaultValue
+                return {
+                    ...errorDefaultValue,
+                    meaningLength: state.meaningLength,
+                    exampleLength: state.example
+                }
 
             default:
                 return state
@@ -94,9 +100,12 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
 
         addVocabulary(data)
             .then((docs) => {
-                data.docId = docs.id
+                data.id = docs.id
+                // console.log(data.createdAt)
+                data.createdAt = new Date().toString().slice(10)
                 // console.table(data)
                 // push to redux home page data store.
+                dispatchRedux(updateHomePageByPrepand(data))
                 handleColseVocabulary()
                 setShowSuccessMessage(true)
             })
