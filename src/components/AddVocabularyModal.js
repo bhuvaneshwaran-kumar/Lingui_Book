@@ -34,12 +34,12 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
             case 'ERROR_MEANING':
                 return {
                     ...state,
-                    word: true
+                    meaning: true
                 }
             case 'ERROR_EXAMPLE':
                 return {
                     ...state,
-                    tag: true
+                    example: true
                 }
             case 'UPDATE_MEANING_LENGTH':
                 return {

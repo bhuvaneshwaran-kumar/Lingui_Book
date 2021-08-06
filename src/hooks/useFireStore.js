@@ -17,7 +17,8 @@ const useFireStore = () => {
         return db.collection('public').orderBy('createdAt', 'desc').startAfter(doc.createdAt).limit(10).get()
     }
 
-
+    db.collection('public').get()
+        .then(docs => console.log(`length  + ${docs.size}`))
     return {
         logIn, logOut, addVocabulary,
         getPublicNotes, getPublicNotesAfter
