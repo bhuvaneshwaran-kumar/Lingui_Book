@@ -12,6 +12,10 @@ import useFireStore from '../hooks/useFireStore'
 
 import AddVocabularyModal from './AddVocabularyModal'
 
+
+
+
+
 function Nav() {
 
     const [drawerOpen, setDrawerOpen] = useState(false)
@@ -88,9 +92,9 @@ function Nav() {
                 <Snackbar
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                     open={showSuccessMessage}
-                    autoHideDuration='2500'
+                    autoHideDuration={2500}
                     onClose={() => setShowSuccessMessage(false)}
-                    message='Post Added SuccessFully'
+                    message='Note Added SuccessFully'
                 />
             }
         </div>

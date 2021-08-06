@@ -1,5 +1,5 @@
 export const SET_USER = 'set_user';
-
+export const UPDATE_HOMEPAGE_APPEND = 'update_hompage_append'
 // setUser action Creator.
 
 export const setUser = (user) => {
@@ -9,4 +9,10 @@ export const setUser = (user) => {
     }
 }
 
+export const updateHomePageByAppend = (data) => {
+    return {
+        type: UPDATE_HOMEPAGE_APPEND,
+        payload: data
+    }
+}
 

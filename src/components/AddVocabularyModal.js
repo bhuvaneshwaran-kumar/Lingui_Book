@@ -1,5 +1,5 @@
 import React, { useRef, useReducer } from 'react'
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, FormControlLabel, Checkbox, Snackbar } from '@material-ui/core'
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, FormControlLabel, Checkbox } from '@material-ui/core'
 import { serverTimeStamp } from '../firebase'
 import { useSelector } from 'react-redux'
 import useFireStore from '../hooks/useFireStore'
@@ -95,7 +95,7 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
         addVocabulary(data)
             .then((docs) => {
                 data.docId = docs.id
-                console.table(data)
+                // console.table(data)
                 // push to redux home page data store.
                 handleColseVocabulary()
                 setShowSuccessMessage(true)

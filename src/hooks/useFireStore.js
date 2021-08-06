@@ -6,13 +6,21 @@ const useFireStore = () => {
 
     const logOut = () => auth.signOut()
 
-    const addVocabulary = (data) => {
-        return db.collection(`${data.privacyType}`).add(data)
+    const addVocabulary = (data) => db.collection(`${data.privacyType}`).add(data)
+
+    const getPublicNotes = () => {
+        return db.collection('public').orderBy('createdAt', 'desc').limit(10).get()
+    }
+
+    const getPublicNotesAfter = (doc) => {
+        console.log(doc)
+        return db.collection('public').orderBy('createdAt', 'desc').startAfter(doc.createdAt).limit(10).get()
     }
 
 
     return {
-        logIn, logOut, addVocabulary
+        logIn, logOut, addVocabulary,
+        getPublicNotes, getPublicNotesAfter
     }
 
 }
