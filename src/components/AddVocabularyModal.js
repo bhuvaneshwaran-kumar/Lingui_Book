@@ -15,7 +15,9 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
         word: false,
         tag: false,
         meaning: false,
+        meaningLength: 0,
         example: false,
+        exampleLength: 0,
     }
     function reducer(state = errorDefaultValue, action) {
         switch (action.type) {
@@ -39,6 +41,16 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
                     ...state,
                     tag: true
                 }
+            case 'UPDATE_MEANING_LENGTH':
+                return {
+                    ...state,
+                    meaningLength: action.payLoad
+                }
+            case 'UPDATE_EXAMPLE_LENGTH':
+                return {
+                    ...state,
+                    exampleLength: action.payLoad
+                }
             case 'RESET_ERROR':
                 return errorDefaultValue
 
@@ -49,14 +61,16 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
     }
     const [errorState, dispatch] = useReducer(reducer, errorDefaultValue)
 
-
-
+    //Redux state
     const user = useSelector(store => store.user)
 
+    // Custom Hook
     const { addVocabulary } = useFireStore()
 
+    //handle Reset ErrorState
     const handleOnChange = () => dispatch({ type: 'RESET_ERROR' })
 
+    // handleFormSubmit
     const handleSubmit = (e) => {
         e.preventDefault();
         let privacy = formRef.current.privacy.checked ? formRef.current.privacy.value : 'private'
@@ -78,19 +92,27 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
         if (data.example === '') return dispatch({ type: 'ERROR_EXAMPLE' })
 
 
-        // addVocabulary(data)
-        //     .then((docs) => {
-        //         data.docId = docs.id
-        //         console.table(data)
-        //         // push to redux home page data store.
-        //         handleColseVocabulary()
-        //         setShowSuccessMessage(true)
-        //     })
-        //     .catch(err => console.error(err.message))
+        addVocabulary(data)
+            .then((docs) => {
+                data.docId = docs.id
+                console.table(data)
+                // push to redux home page data store.
+                handleColseVocabulary()
+                setShowSuccessMessage(true)
+            })
+            .catch(err => console.error(err.message))
 
 
     }
 
+    // of meaning and example TextFiels.
+    const handleLengthUpdate = (event, type) => {
+        const length = event.target.value.length
+        dispatch({
+            type: type,
+            payLoad: length
+        })
+    }
 
     return (
         <Dialog aria-labelledby="form-dialog-title"
@@ -113,7 +135,7 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
                         type="text"
                         helperText="The word"
                         fullWidth
-                        onChange={handleOnChange}
+                        onFocus={handleOnChange}
                     />
                     <TextField
                         error={errorState.tag}
@@ -123,7 +145,7 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
                         type="text"
                         fullWidth
                         helperText={`where you heard the word, [ office, playground, travell,..etc]`}
-                        onChange={handleOnChange}
+                        onFocus={handleOnChange}
                     />
                     <TextField
                         error={errorState.meaning}
@@ -132,10 +154,11 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
                         label="Enter the meaning of the word"
                         fullWidth
                         multiline
-                        helperText="max of 200 characters"
+                        helperText={`${errorState.meaningLength} /  max of 200 characters`}
                         rowsMax='10'
                         inputProps={{ maxLength: 200 }}
-                        onChange={handleOnChange}
+                        onFocus={handleOnChange}
+                        onChange={(e) => handleLengthUpdate(e, 'UPDATE_MEANING_LENGTH')}
                     />
 
                     <TextField
@@ -144,9 +167,10 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
                         name="example"
                         multiline
                         label="real time example"
-                        helperText="max of 100 characters"
+                        helperText={`${errorState.exampleLength} /  max of 100 characters`}
                         inputProps={{ maxLength: 100 }}
-                        onChange={handleOnChange}
+                        onFocus={handleOnChange}
+                        onChange={(e) => handleLengthUpdate(e, 'UPDATE_EXAMPLE_LENGTH')}
                     />
                     <FormControlLabel
                         value="public"
