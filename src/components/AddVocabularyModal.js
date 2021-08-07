@@ -71,7 +71,7 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
     const user = useSelector(store => store.user)
 
     // Custom Hook
-    const { addVocabulary, getSingleNoteDocument } = useFireStore()
+    const { addVocabulary } = useFireStore()
 
     //handle Reset ErrorState
     const handleOnChange = () => dispatch({ type: 'RESET_ERROR' })

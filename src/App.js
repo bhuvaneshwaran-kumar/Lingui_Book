@@ -10,8 +10,6 @@ import { Switch, Route } from 'react-router-dom'
 function App() {
 
   const [loading, setLoading] = useState(true)
-
-
   const user = useSelector((store) => store.user)
   const dispatch = useDispatch()
 
