@@ -13,15 +13,19 @@ const useFireStore = () => {
     }
 
     const getPublicNotesAfter = (doc) => {
-        console.log(doc)
+        // console.log(doc)
         return db.collection('public').orderBy('createdAt', 'desc').startAfter(doc.createdAt).limit(10).get()
     }
 
+    const getSingleNoteDocument = (data, docId) => {
+        return db.collection(`${data.privacyType}`).doc(docId).get()
+    }
     // db.collection('public').get()
     //     .then(docs => console.log(`length  + ${docs.size}`))
     return {
         logIn, logOut, addVocabulary,
-        getPublicNotes, getPublicNotesAfter
+        getPublicNotes, getPublicNotesAfter,
+        getSingleNoteDocument
     }
 
 }

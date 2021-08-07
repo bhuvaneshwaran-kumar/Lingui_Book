@@ -3,8 +3,7 @@ import { CardHeader, Avatar, Divider, IconButton } from '@material-ui/core'
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 function Card({ noteData, innerRef }) {
-    if (typeof noteData.createdAt !== 'String ') {
-        noteData.createdAt = noteData.createdAt.toDate()?.toString()?.slice(0, 10)
+    if (typeof noteData.createdAt !== 'String ')
 
         return (
             <div ref={innerRef} className="home__card">
@@ -12,10 +11,10 @@ function Card({ noteData, innerRef }) {
                     avatar={
                         <Avatar src={`${noteData.createrPhotoURL}`} />
                     }
-                    title={`${noteData?.createrName}`}
-                    subheader={'date'}
+                    title={`${noteData.createrName}`}
+                    subheader={`${noteData.createdAtLocal}`}
                 />
-                {/* ?.toDate()?.toString()?.slice(0, 10) */}
+
 
                 <div className="home__cardRow">
                     <p className="home__cardRow__heading one">Word</p>
@@ -44,6 +43,6 @@ function Card({ noteData, innerRef }) {
                 </div>
             </div>
         )
-    }
+}
 
-    export default Card
+export default Card

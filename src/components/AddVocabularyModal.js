@@ -71,12 +71,12 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
     const user = useSelector(store => store.user)
 
     // Custom Hook
-    const { addVocabulary } = useFireStore()
+    const { addVocabulary, getSingleNoteDocument } = useFireStore()
 
     //handle Reset ErrorState
     const handleOnChange = () => dispatch({ type: 'RESET_ERROR' })
 
-    // handleFormSubmit
+    // handleFormSubmit 95-98.validate data, 100-110.add data to fire store,102-105 add to local reduxStore if its public data.
     const handleSubmit = (e) => {
         e.preventDefault();
         let privacy = formRef.current.privacy.checked ? formRef.current.privacy.value : 'private'
@@ -97,15 +97,13 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
         if (data.meaning === '') return dispatch({ type: 'ERROR_MEANING' })
         if (data.example === '') return dispatch({ type: 'ERROR_EXAMPLE' })
 
-
         addVocabulary(data)
             .then((docs) => {
-                data.id = docs.id
-                // console.log(data.createdAt)
-                data.createdAt = new Date().toString().slice(10)
-                // console.table(data)
-                // push to redux home page data store.
-                dispatchRedux(updateHomePageByPrepand(data))
+                if (data.privacyType === 'public') {
+                    data.id = docs.id
+                    data.createdAtLocal = new Date().toDateString()
+                    dispatchRedux(updateHomePageByPrepand(data))
+                }
                 handleColseVocabulary()
                 setShowSuccessMessage(true)
             })

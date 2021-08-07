@@ -5,6 +5,7 @@ import '../../css/HomePage.css'
 import Card from './Card'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateHomePageByAppend } from '../../actions/index'
+import Loader from '../Loader'
 function HomePage() {
 
     const { getPublicNotes, getPublicNotesAfter } = useFireStore()
@@ -15,15 +16,19 @@ function HomePage() {
 
     const [hasMore, setHasMore] = useState(true)
 
-
+    // convert firebase timeStamp to readable format
+    const convertTimeStamp = (data) => data.map(data => ({
+        ...data,
+        createdAtLocal: data.createdAt.toDate()?.toString()?.slice(0, 16)
+    }))
 
     // fetch the data from fireStore based on cursor data passed as a argument.
     function getPaginateddata(doc) {
         getPublicNotesAfter(doc)
             .then((docs) => {
                 if (docs.docs.length <= 0) return setHasMore(false)
-                const data = docs.docs.map(data => ({ id: data.id, ...data.data() }))
-                console.table(data)
+                let data = docs.docs.map(data => ({ id: data.id, ...data.data() }))
+                data = convertTimeStamp(data)
                 dispatch(updateHomePageByAppend(data))
             })
     }
@@ -37,11 +42,10 @@ function HomePage() {
         observer.current = new IntersectionObserver(entries => {
             if (entries[0].isIntersecting && hasMore) {
                 getPaginateddata(homePageState[homePageState.length - 1])
-                console.log('nooooo')
+                console.log('fetching data....')
             } else {
                 console.log('no more data to fetch || not Intersecting')
                 console.log(homePageState.length)
-                // console.table(homePageState)
             }
         })
         if (Node) observer.current.observe(Node)
@@ -53,12 +57,9 @@ function HomePage() {
         if (homePageState.length === 0) {
             getPublicNotes()
                 .then((docs) => {
-                    // console.log(docs.docs.length < 3)
                     if (docs.docs.length <= 0) return setHasMore(false)
-                    const data = docs.docs.map(data => ({ id: data.id, ...data.data() }))
-                    console.table(data)
-                    // console.log(data[data.length - 1])
-                    // getPaginateddata(data[data.length - 1])
+                    let data = docs.docs.map(data => ({ id: data.id, ...data.data() }))
+                    data = convertTimeStamp(data)
                     dispatch(updateHomePageByAppend(data))
                 })
                 .catch(err => alert(err.message))
@@ -81,6 +82,9 @@ function HomePage() {
                 }
 
                 )
+            }
+            {
+                hasMore && <Loader />
             }
         </div>
     )
