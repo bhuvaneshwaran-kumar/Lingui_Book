@@ -5,7 +5,7 @@ import { setUser } from './actions/index'
 import { LinearProgress } from '@material-ui/core'
 import Nav from './components/Nav'
 import Login from './components/Login'
-import HomePage from './components/home/HomePage'
+import HomePage from './pages/HomePage'
 import { Switch, Route } from 'react-router-dom'
 function App() {
 
