@@ -1,17 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Tooltip, Avatar, IconButton } from '@material-ui/core'
 import HomeIcon from '@material-ui/icons/Home'
 import BookmarkOutlinedIcon from '@material-ui/icons/BookmarkOutlined';
 import SettingsPowerOutlinedIcon from '@material-ui/icons/SettingsPowerOutlined';
 import AddCircleOutlineSharpIcon from '@material-ui/icons/AddCircleOutlineSharp';
 
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 
 
-function NavList({ handleLogOut, user, column, handleToggleAddVocabulary }) {
+function NavList({ handleLogOut, user, column, handleToggleAddVocabulary, handleToggleSideNav }) {
     const history = useHistory()
+    const location = useLocation()
 
-    const changeRoute = (route) => history.push(`${route}`)
+    const [currentPath, setCurrentPath] = useState(location.pathname)
+
+    useEffect(() => {
+        const unsubscribe = history.listen((location) => {
+            setCurrentPath(location.pathname)
+        })
+        return unsubscribe
+    })
+
+
+    const changeRoute = (route) => {
+        column && handleToggleSideNav()
+        history.push(`${route}`)
+    }
 
 
     const flexDirection = column ? 'column' : 'row'
@@ -23,7 +37,7 @@ function NavList({ handleLogOut, user, column, handleToggleAddVocabulary }) {
                 </IconButton>
             </Tooltip>
             <Tooltip title="Home" arrow onClick={() => changeRoute('/')}>
-                <IconButton style={{ color: 'black' }}>
+                <IconButton style={{ color: currentPath === '/' ? 'teal' : 'black' }}>
                     <HomeIcon />
                 </IconButton>
             </Tooltip>
@@ -34,7 +48,7 @@ function NavList({ handleLogOut, user, column, handleToggleAddVocabulary }) {
             </Tooltip>
 
             <Tooltip title="Saved" arrow onClick={() => changeRoute('/saved')}>
-                <IconButton style={{ color: 'black' }}>
+                <IconButton style={{ color: currentPath === '/saved' ? 'teal' : 'black' }}>
                     <BookmarkOutlinedIcon />
                 </IconButton>
             </Tooltip>

@@ -25,6 +25,21 @@ function Card({ noteData, innerRef }) {
         }
     })
 
+    const addToSaveList = (noteData) => {
+        noteData.savedListCretedAt = serverTimeStamp()
+
+        addUserSavedList(noteData, user.uid)
+            .then(() => console.log("added saved list"))
+            .catch((err) => console.log("error", err))
+    }
+
+    const removeFromSaveList = (noteData) => {
+        noteData.savedListCretedAt = serverTimeStamp()
+        removeUserSavedList(noteData, user.uid)
+            .then(() => console.log("removed saved list"))
+            .catch((err) => console.log("error", err))
+    }
+
     const handleBookmark = () => {
         if (Array.isArray(noteData.savedSet)) {
             if (isSaved) {
@@ -34,19 +49,13 @@ function Card({ noteData, innerRef }) {
                 if (index > -1) {
                     noteData.savedSet.splice(index, 1)
                     updateSavedSetInNote(noteData.id, noteData.savedSet)
-                    noteData.savedListCretedAt = serverTimeStamp()
-                    removeUserSavedList(noteData, user.uid)
-                        .then(() => console.log("removed saved list"))
-                        .catch((err) => console.log("error", err))
+                    removeFromSaveList()
                 }
             } else {
                 setIsSaved(true)
-                noteData.savedSet.push(user.uid)
-                updateSavedSetInNote(noteData.id, noteData.savedSet)
-                noteData.savedListCretedAt = serverTimeStamp()
-                addUserSavedList(noteData, user.uid)
-                    .then(() => console.log("added saved list"))
-                    .catch((err) => console.log("error", err))
+                noteData.savedSet.push(user.uid) //pushing the userId
+                updateSavedSetInNote(noteData.id, noteData.savedSet) //Updating the saved User List in note document in public.
+                addToSaveList()
             }
         } else {
             // no body saved this Note yet.
@@ -54,10 +63,7 @@ function Card({ noteData, innerRef }) {
             noteData.savedSet = [user.uid]
             console.log('bookMarking')
             updateSavedSetInNote(noteData.id, noteData.savedSet)
-            noteData.savedListCretedAt = serverTimeStamp()
-            addUserSavedList(noteData, user.uid)
-                .then(() => console.log("added saved list"))
-                .catch((err) => console.log("error", err))
+            addToSaveList()
 
         }
         dispatch(updateHomePageSavedList(noteData))

@@ -78,7 +78,7 @@ function Nav() {
                 onOpen={() => setDrawerOpen(true)}
             >
                 <div className="nav__drawer">
-                    <NavList handleLogOut={handleLogOut} user={user} column={true} handleToggleAddVocabulary={handleToggleAddVocabulary} />
+                    <NavList handleLogOut={handleLogOut} user={user} column={true} handleToggleAddVocabulary={handleToggleAddVocabulary} handleToggleSideNav={handleToggleSideNav} />
                 </div>
 
             </SwipeableDrawer>
