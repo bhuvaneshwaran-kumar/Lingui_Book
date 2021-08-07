@@ -6,6 +6,7 @@ import { LinearProgress } from '@material-ui/core'
 import Nav from './components/Nav'
 import Login from './components/Login'
 import HomePage from './pages/HomePage'
+import SavedPage from './pages/SavedPage'
 import { Switch, Route } from 'react-router-dom'
 function App() {
 
@@ -64,8 +65,9 @@ function App() {
           <Route path="/" exact>
             <HomePage />
           </Route>
-
-
+          <Route path="/saved" exact>
+            <SavedPage />
+          </Route>
         </Switch>
       }
 

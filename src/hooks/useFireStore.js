@@ -20,7 +20,8 @@ const useFireStore = () => {
 
     //Add Users saved List 
     const addUserSavedList = (publicNotedoc, uid) => {
-        return db.collection('users').doc(uid).collection('savedList').doc(publicNotedoc.id).set(publicNotedoc)
+        const userSavedListRef = db.collection('users').doc(uid)
+        return userSavedListRef.collection('savedList').doc(publicNotedoc.id).set(publicNotedoc)
     }
 
     //remove Users saved List
@@ -28,6 +29,14 @@ const useFireStore = () => {
         return db.collection('users').doc(uid).collection('savedList').doc(publicNotedoc.id).delete()
     }
 
+    const getUserSavedList = (uid) => {
+        return db.collection('users').doc(uid).collection('savedList').orderBy('savedListCreatedAt', "desc").limit(10).get()
+    }
+
+    const getUserSavedListAfter = (uid, doc) => {
+        return db.collection('users').doc(uid).collection('savedList').orderBy('savedListCreatedAt', "desc").startAfter(doc.savedListCreatedAt).limit(10).get()
+
+    }
 
 
     // db.collection('public').get()
@@ -35,7 +44,8 @@ const useFireStore = () => {
     return {
         logIn, logOut, addVocabulary,
         getPublicNotes, getPublicNotesAfter,
-        updateSavedSetInNote, addUserSavedList, removeUserSavedList
+        updateSavedSetInNote, addUserSavedList, removeUserSavedList,
+        getUserSavedList, getUserSavedListAfter
     }
 
 }
