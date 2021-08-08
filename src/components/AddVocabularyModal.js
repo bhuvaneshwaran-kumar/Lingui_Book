@@ -3,7 +3,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import { serverTimeStamp } from '../firebase'
 import { useDispatch, useSelector } from 'react-redux'
 import useFireStore from '../hooks/useFireStore'
-import { updateHomePageByPrepand } from '../actions/index'
+import { updateHomePageByPrepand, updateUserTag } from '../actions/index'
 
 
 function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSuccessMessage }) {
@@ -57,7 +57,7 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
                 return {
                     ...errorDefaultValue,
                     meaningLength: state.meaningLength,
-                    exampleLength: state.example
+                    exampleLength: state.exampleLength
                 }
 
             default:
@@ -71,10 +71,26 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
     const user = useSelector(store => store.user)
 
     // Custom Hook
-    const { addVocabulary } = useFireStore()
+    const { addVocabulary, updateUserTagInFireStore } = useFireStore()
 
     //handle Reset ErrorState
     const handleOnChange = () => dispatch({ type: 'RESET_ERROR' })
+
+    // add's user Tag List
+    const addTagToUserTagList = (tag) => {
+        if (user.tags) {
+            if (!user.tags.includes(tag)) {
+                user.tags.unshift(tag)
+                dispatchRedux(updateUserTag(user.tags)) // update in frontEnd
+                updateUserTagInFireStore(user.uid, user.tags) //update in BE
+                    .catch(err => console.log(err))
+            }
+        } else {
+            user.tags = [tag]
+            dispatchRedux(updateUserTag(user.tags)) //Update in FE
+            updateUserTagInFireStore(user.uid, user.tags) //Update in BE
+        }
+    }
 
     // handleFormSubmit 95-98.validate data, 100-110.add data to fire store,102-105 add to local reduxStore if its public data.
     const handleSubmit = (e) => {
@@ -97,6 +113,7 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
         if (data.meaning === '') return dispatch({ type: 'ERROR_MEANING' })
         if (data.example === '') return dispatch({ type: 'ERROR_EXAMPLE' })
 
+
         addVocabulary(data)
             .then((docs) => {
                 if (data.privacyType === 'public') {
@@ -108,6 +125,8 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
                 setShowSuccessMessage(true)
             })
             .catch(err => console.error(err.message))
+
+        addTagToUserTagList(data.tag)
 
 
     }
@@ -128,7 +147,7 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
             disableBackdropClick
         >
             <DialogTitle id="form-dialog-title">Add Vocabulary 📑</DialogTitle>
-            <form onSubmit={handleSubmit} autoComplete='off' ref={formRef} >
+            <form onSubmit={handleSubmit} ref={formRef} autoComplete='off' >
                 <DialogContent>
                     <DialogContentText >
                         Imporve your vocabulary by publishing in Note Gram.
@@ -153,7 +172,14 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
                         fullWidth
                         helperText={`where you heard the word, [ office, playground, travell,..etc]`}
                         onFocus={handleOnChange}
+                        list="tagSuggestion"
+                        inputProps={{
+                            list: "tagSuggestion"
+                        }}
                     />
+                    <datalist id="tagSuggestion">
+                        {user.tags && user.tags.map(data => <option value={data} />)}
+                    </datalist>
                     <TextField
                         error={errorState.meaning}
                         margin="dense"

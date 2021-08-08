@@ -44,6 +44,7 @@ const useFireStore = () => {
         return db.collection('users').doc(uid).collection('savedList').doc(publicNotedoc.id).delete()
     }
 
+    // fetch Users saved List.
     const getUserSavedList = (uid) => {
         return db.collection('users').doc(uid).collection('savedList').orderBy('savedListCreatedAt', "desc").limit(10).get()
     }
@@ -51,6 +52,14 @@ const useFireStore = () => {
     const getUserSavedListAfter = (uid, doc) => {
         return db.collection('users').doc(uid).collection('savedList').orderBy('savedListCreatedAt', "desc").startAfter(doc.savedListCreatedAt).limit(10).get()
 
+    }
+
+    const getUsersTag = (uid) => {
+        return db.collection('users').doc(uid).get()
+    }
+
+    const updateUserTagInFireStore = (uid, data) => {
+        return db.collection('users').doc(uid).set({ 'tags': data }, { merge: true })
     }
 
 
@@ -61,7 +70,7 @@ const useFireStore = () => {
         getPublicNotes, getPublicNotesAfter,
         updateSavedSetInNote, addUserSavedList, removeUserSavedList,
         getUserSavedList, getUserSavedListAfter, updateLikeListInNote,
-        incrementLikeCountInNote, decrementLikeCountInNote
+        incrementLikeCountInNote, decrementLikeCountInNote, getUsersTag, updateUserTagInFireStore
     }
 
 }

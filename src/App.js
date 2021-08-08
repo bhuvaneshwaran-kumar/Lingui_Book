@@ -8,6 +8,7 @@ import Login from './components/Login'
 import HomePage from './pages/HomePage'
 import SavedPage from './pages/SavedPage'
 import { Switch, Route } from 'react-router-dom'
+import useFireStore from './hooks/useFireStore';
 function App() {
 
   const [loading, setLoading] = useState(true)
@@ -15,6 +16,7 @@ function App() {
   const dispatch = useDispatch()
 
 
+  const { getUsersTag } = useFireStore()
   // useEffect(() => {
   //   console.log(user?.name + ' is logged in')
   // }, [user])
@@ -33,13 +35,23 @@ function App() {
           email: user.email,
           photoURL: user.photoURL,
         }
+        getUsersTag(user.uid)
+          .then((doc) => {
+            let tagsData = doc.data()
+            if (tagsData.tags) {
+              data.tags = tagsData.tags
+            } else {
+              data.tags = []
+            }
+          })
+          .catch(err => console.log(err))
         dispatch(setUser(data))
       } else {
         dispatch(setUser(null))
       }
       setLoading(false)
     })
-    return unsubscribe
+    return unsubscribe  // eslint-disable-next-line
   }, [dispatch])
 
   return (
