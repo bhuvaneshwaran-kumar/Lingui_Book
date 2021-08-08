@@ -29,7 +29,7 @@ function NavList({ handleLogOut, user, column, handleToggleAddVocabulary, handle
     const flexDirection = column ? 'column' : 'row'
     return (
         <div style={{ display: 'flex', flexDirection: flexDirection }}>
-            <Tooltip title="Profile" arrow>
+            <Tooltip title="Personal Note!" arrow onClick={() => changeRoute('/personal-note')}>
                 <IconButton>
                     <Avatar src={user?.photoURL} style={{ width: '1.7rem', height: '1.7rem' }} component={Link} to="/" />
                 </IconButton>

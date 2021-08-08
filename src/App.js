@@ -7,6 +7,7 @@ import Nav from './components/navBar/Nav'
 import Login from './components/Login'
 import HomePage from './pages/HomePage'
 import SavedPage from './pages/SavedPage'
+import PersonalNote from './components/personalNote/PersonalNote';
 import { Switch, Route } from 'react-router-dom'
 import useFireStore from './hooks/useFireStore';
 function App() {
@@ -78,6 +79,9 @@ function App() {
           </Route>
           <Route path="/saved" exact>
             <SavedPage />
+          </Route>
+          <Route path="/personal-note" exact>
+            <PersonalNote />
           </Route>
         </Switch>
       }

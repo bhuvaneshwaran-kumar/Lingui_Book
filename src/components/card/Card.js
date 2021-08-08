@@ -1,5 +1,5 @@
 import React from 'react'
-import { CardHeader, Avatar, Divider } from '@material-ui/core'
+import { CardHeader, Avatar, Divider, Tooltip } from '@material-ui/core'
 
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -17,7 +17,9 @@ function Card({ noteData, innerRef, isSavedPage }) {
         <div ref={innerRef} className="home__card">
             <CardHeader className="home__cardHeader"
                 avatar={
-                    <Avatar src={`${noteData.createrPhotoURL}`} />
+                    <Tooltip title={noteData.tag} arrow>
+                        <Avatar src={`${noteData.createrPhotoURL}`} />
+                    </Tooltip>
                 }
                 title={`${noteData.createrName}`}
                 subheader={`${noteData.createdAtLocal}`}

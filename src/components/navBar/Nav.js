@@ -42,7 +42,7 @@ function Nav() {
             {/* Left Nav */}
             <div className="nav__left">
                 {/* Profile */}
-                <Tooltip title="Profile" arrow onClick={handleToggleSideNav}>
+                <Tooltip title="Menu" arrow onClick={handleToggleSideNav}>
                     <IconButton>
                         <MenuIcon style={{ color: 'black' }} />
                     </IconButton>
