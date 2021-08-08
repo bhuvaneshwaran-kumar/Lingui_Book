@@ -16,7 +16,6 @@ function NavList({ handleLogOut, user, column, handleToggleAddVocabulary, handle
 
     useEffect(() => {
         const unsubscribe = history.listen((location) => setCurrentPath(location.pathname))
-
         return unsubscribe
     })
 

@@ -1,4 +1,4 @@
-import { auth, provider, db } from "../firebase"
+import { auth, provider, db, increment, decrement } from "../firebase"
 
 const useFireStore = () => {
 
@@ -17,6 +17,21 @@ const useFireStore = () => {
 
     // update savedSet in public notes.
     const updateSavedSetInNote = (docId, data) => db.collection('public').doc(docId).update({ savedSet: data });
+
+    // update likeList in public notes.
+    const updateLikeListInNote = (docId, data) => {
+        return db.collection('public').doc(docId).update(data)
+    }
+
+    // Increase likeCount of Public Note by +1.
+    const incrementLikeCountInNote = (docId) => {
+        return db.collection('public').doc(docId).update({ likeCount: increment(1) })
+    }
+
+    // decrease likeCount of Public Note by -1 .
+    const decrementLikeCountInNote = (docId) => {
+        return db.collection('public').doc(docId).update({ likeCount: decrement(-1) })
+    }
 
     //Add Users saved List 
     const addUserSavedList = (publicNotedoc, uid) => {
@@ -45,7 +60,8 @@ const useFireStore = () => {
         logIn, logOut, addVocabulary,
         getPublicNotes, getPublicNotesAfter,
         updateSavedSetInNote, addUserSavedList, removeUserSavedList,
-        getUserSavedList, getUserSavedListAfter
+        getUserSavedList, getUserSavedListAfter, updateLikeListInNote,
+        incrementLikeCountInNote, decrementLikeCountInNote
     }
 
 }

@@ -25,7 +25,7 @@ export const updateHomePageByPrepand = (data) => {
     }
 }
 
-export const updateHomePageSavedList = (data) => {
+export const updateHomePageNote = (data) => {
     return {
         type: UPDATE_HOMEPAGE_SAVEDLIST,
         payload: data

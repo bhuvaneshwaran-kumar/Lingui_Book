@@ -22,4 +22,5 @@ export const db = firebase.firestore()
 export const auth = firebase.auth()
 export const provider = new firebase.auth.GoogleAuthProvider()
 export const serverTimeStamp = firebase.firestore.FieldValue.serverTimestamp
-
+export const increment = firebase.firestore.FieldValue.increment
+export const decrement = firebase.firestore.FieldValue.increment
