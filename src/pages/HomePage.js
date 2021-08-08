@@ -2,7 +2,7 @@ import React, { useCallback, useRef } from 'react'
 import { useEffect, useState } from 'react'
 import useFireStore from '../hooks/useFireStore'
 import '../css/HomePage.css'
-import Card from '../components/Card'
+import Card from '../components/card/Card'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateHomePageByAppend } from '../actions/index'
 import Loader from '../components/Loader'
@@ -42,10 +42,10 @@ function HomePage() {
         observer.current = new IntersectionObserver(entries => {
             if (entries[0].isIntersecting && hasMore) {
                 getPaginateddata(homePageState[homePageState.length - 1])
-                console.log('fetching data....')
+                // console.log('fetching data....')
             } else {
-                console.log('no more data to fetch || not Intersecting')
-                console.log(homePageState.length)
+                // console.log('no more data to fetch || not Intersecting')
+                // console.log(homePageState.length)
             }
         })
         if (Node) observer.current.observe(Node)

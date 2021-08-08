@@ -5,12 +5,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import { Snackbar } from '@material-ui/core'
 import NavList from './NavList'
-import '../css/Nav.css'
+import '../../css/Nav.css'
 
 import { useSelector } from 'react-redux'
-import useFireStore from '../hooks/useFireStore'
+import useFireStore from '../../hooks/useFireStore'
 
-import AddVocabularyModal from './AddVocabularyModal'
+import AddVocabularyModal from '../AddVocabularyModal'
 
 
 
@@ -29,7 +29,7 @@ function Nav() {
     const handleToggleSideNav = () => setDrawerOpen(prev => !prev)
 
     const handleLogOut = () => {
-        console.log('logging out the user')
+        // console.log('logging out the user')
         logOut()
     }
 

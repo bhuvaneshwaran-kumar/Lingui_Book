@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-import useFireStore from '../hooks/useFireStore'
+import useFireStore from '../../hooks/useFireStore'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { IconButton } from '@material-ui/core'

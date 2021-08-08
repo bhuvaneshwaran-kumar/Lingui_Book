@@ -3,7 +3,7 @@ import { auth } from './firebase'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from './actions/index'
 import { LinearProgress } from '@material-ui/core'
-import Nav from './components/Nav'
+import Nav from './components/navBar/Nav'
 import Login from './components/Login'
 import HomePage from './pages/HomePage'
 import SavedPage from './pages/SavedPage'
@@ -15,9 +15,9 @@ function App() {
   const dispatch = useDispatch()
 
 
-  useEffect(() => {
-    console.log(user?.name + ' is logged in')
-  }, [user])
+  // useEffect(() => {
+  //   console.log(user?.name + ' is logged in')
+  // }, [user])
 
 
 
@@ -27,7 +27,6 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setLoading(true)
       if (user) {
-        console.log('user is successfully loggedIn')
         const data = {
           uid: user.uid,
           name: user.displayName,

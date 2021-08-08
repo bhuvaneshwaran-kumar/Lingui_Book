@@ -1,11 +1,10 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import useFireStore from '../hooks/useFireStore'
+import useFireStore from '../../hooks/useFireStore'
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import { IconButton } from '@material-ui/core'
-import { serverTimeStamp } from '../firebase'
+import { serverTimeStamp } from '../../firebase'
 
 function Save({ noteData, user, dispatch, updateHomePageNote }) {
 
@@ -28,13 +27,13 @@ function Save({ noteData, user, dispatch, updateHomePageNote }) {
         delete tempData['createdAtLocal']
         delete tempData['savedSet']
         addUserSavedList(tempData, user.uid)
-            .then(() => console.log("added saved list"))
+            .then(() => console.log("Note added to your saved list"))
             .catch((err) => console.log("error", err))
     }
 
     const removeFromSaveList = () => {
         removeUserSavedList(noteData, user.uid)
-            .then(() => console.log("removed saved list"))
+            .then(() => console.log("Note removed from your saved list"))
             .catch((err) => console.log("error", err))
     }
 
@@ -59,7 +58,7 @@ function Save({ noteData, user, dispatch, updateHomePageNote }) {
             // no body saved this Note yet.
             setIsSaved(true)
             noteData.savedSet = [user.uid]
-            console.log('bookMarking')
+            // console.log('bookMarking')
             updateSavedSetInNote(noteData.id, noteData.savedSet)
             addToSaveList()
 

@@ -2,9 +2,8 @@ import React, { useCallback, useRef } from 'react'
 import { useEffect, useState } from 'react'
 import useFireStore from '../hooks/useFireStore'
 import '../css/HomePage.css'
-import Card from '../components/Card'
-import { useDispatch, useSelector } from 'react-redux'
-import { updateHomePageByAppend } from '../actions/index'
+import Card from '../components/card/Card'
+import { useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 function SavedPage() {
 
@@ -44,10 +43,10 @@ function SavedPage() {
         observer.current = new IntersectionObserver(entries => {
             if (entries[0].isIntersecting && hasMore) {
                 getPaginateddata(loadingPageState[loadingPageState.length - 1])
-                console.log('fetching data....')
+                // console.log('fetching data....')
             } else {
-                console.log('no more data to fetch || not Intersecting')
-                console.log(loadingPageState.length)
+                // console.log('no more data to fetch || not Intersecting')
+                // console.log(loadingPageState.length)
             }
         })
         if (Node) observer.current.observe(Node)
@@ -59,7 +58,7 @@ function SavedPage() {
     useEffect(() => {
         getUserSavedList(user.uid)
             .then((docs) => {
-                console.log(docs.docs)
+                // console.log(docs.docs)
                 if (docs.docs.length <= 0) return setHasMore(false)
                 let data = docs.docs.map(data => ({ id: data.id, ...data.data(), savedSet: [user.uid] }))
                 data = convertTimeStamp(data)
@@ -78,9 +77,9 @@ function SavedPage() {
             {
                 loadingPageState.map((noteData, index) => {
                     if (loadingPageState.length === index + 1) {
-                        return < Card innerRef={lastNoteVocabularyElmRef} key={noteData.id} id={noteData.id} noteData={noteData} />
+                        return < Card innerRef={lastNoteVocabularyElmRef} key={noteData.id} id={noteData.id} noteData={noteData} isSavedPage={true} />
                     } else {
-                        return <Card key={noteData.id} id={noteData.id} noteData={noteData} />
+                        return <Card key={noteData.id} id={noteData.id} noteData={noteData} isSavedPage={true} />;
                     }
                 }
 

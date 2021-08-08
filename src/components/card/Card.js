@@ -3,11 +3,11 @@ import { CardHeader, Avatar, Divider } from '@material-ui/core'
 
 
 import { useSelector, useDispatch } from 'react-redux';
-import { updateHomePageNote } from '../actions/index'
+import { updateHomePageNote } from '../../actions/index'
 
 import SaveIcon from './Save'
 import LikeIcon from './Like'
-function Card({ noteData, innerRef }) {
+function Card({ noteData, innerRef, isSavedPage }) {
 
     const user = useSelector(store => store.user)
     const dispatch = useDispatch()
@@ -40,8 +40,8 @@ function Card({ noteData, innerRef }) {
                 <pre>{noteData.example.trim().replaceAll('\n\n\n\n\n\n\n\n\n', '')}</pre>
             </div>
             <Divider />
-            <div className="home__cardRow bottom">
-                <LikeIcon noteData={noteData} user={user} dispatch={dispatch} updateHomePageNote={updateHomePageNote} />
+            <div className="home__cardRow bottom" style={{ justifyContent: isSavedPage && 'flex-end' }}>
+                {!isSavedPage && <LikeIcon noteData={noteData} user={user} dispatch={dispatch} updateHomePageNote={updateHomePageNote} />}
                 <SaveIcon noteData={noteData} user={user} dispatch={dispatch} updateHomePageNote={updateHomePageNote} />
             </div>
         </div>
