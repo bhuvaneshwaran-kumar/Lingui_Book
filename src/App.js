@@ -35,24 +35,21 @@ function App() {
           name: user.displayName,
           email: user.email,
           photoURL: user.photoURL,
+          tags: [],
+          privateTags: []
         }
         getUsersTag(user.uid)
           .then((doc) => {
             let tagsData = doc.data()
-            if (tagsData.tags) {
-              data.tags = tagsData.tags
-            } else {
-              data.tags = []
-            }
-            if (tagsData.privateTags) {
-              data.privateTags = tagsData.privateTags
-            } else {
-              data.privateTags = []
-            }
+
+            data.tags = tagsData.tags || []
+            data.privateTags = tagsData.privateTags || []
+
+            dispatch(setUser(data))
           })
           .catch(err => console.log(err))
+
         console.log('tagData', data)
-        dispatch(setUser(data))
       } else {
         dispatch(setUser(null))
       }

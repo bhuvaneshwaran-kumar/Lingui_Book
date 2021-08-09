@@ -1,13 +1,13 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import NavBarPersonalNote from '../navBar/NavPersonalNote'
-import useFireStore from '../../hooks/useFireStore'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import PersonalTags from './PersonalTags'
-import Card from '../card/Card'
 import '../../css/HomePage.css'
+import useFireStore from '../../hooks/useFireStore'
+import Card from '../card/Card'
+import NavBarPersonalNote from '../navBar/NavPersonalNote'
+import PersonalTags from './PersonalTags'
 function PersonalNote() {
 
-    const { getUsersTag, getUsersTagPost } = useFireStore()
+    const { getUsersTagPost } = useFireStore()
     const user = useSelector(store => store.user)
 
 
@@ -19,7 +19,7 @@ function PersonalNote() {
     const [notesData, setNotesData] = useState([])
 
 
-    const [hasMore, setHasMore] = useState(true)
+    // const [hasMore, setHasMore] = useState(true)
 
     // convert firebase timeStamp to readable format
     const convertTimeStamp = (data) => data.map(data => ({
@@ -64,19 +64,24 @@ function PersonalNote() {
 
     useEffect(() => {
         const getPublicTag = () => {
+            // console.log(Object.keys(user))
+            // console.log(user.tags)
             setPersonalTag(user.tags)
-            setCurretTag(user.tags[0])
+            setCurretTag(user?.tags[0])
         }
         const getPrivateTag = async () => {
             setPersonalTag(user.privateTags)
             setCurretTag(user.privateTags[0])
         }
-        if (isPublic) {
-            getPublicTag()
-        } else {
-            getPrivateTag()
+        if (user) {
+            if (isPublic) {
+                getPublicTag()
+            } else {
+                getPrivateTag()
+            }
         }
-    }, [isPublic])
+
+    }, [isPublic, user])
 
     useEffect(() => {
         setNotesData([])
