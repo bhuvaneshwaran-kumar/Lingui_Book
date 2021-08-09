@@ -9,7 +9,10 @@ Click [**Here**](https://noteit-ed2e5.web.app/) to see the live Demo
 ## Features covered in Version 1.
 
 - SignIn With Google.
-- Post a Note(vocabulary)
+- Post a Vocabulary in Public or Private.
+- Save and Like the Public post - (Vocabulary),
+- cursor based Pagination,
+- Infinite Scroll using IntersectionObserver
 
 ## Technology Used
 

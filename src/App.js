@@ -44,8 +44,14 @@ function App() {
             } else {
               data.tags = []
             }
+            if (tagsData.privateTags) {
+              data.privateTags = tagsData.privateTags
+            } else {
+              data.privateTags = []
+            }
           })
           .catch(err => console.log(err))
+        console.log('tagData', data)
         dispatch(setUser(data))
       } else {
         dispatch(setUser(null))

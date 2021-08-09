@@ -71,25 +71,43 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
     const user = useSelector(store => store.user)
 
     // Custom Hook
-    const { addVocabulary, updateUserTagInFireStore } = useFireStore()
+    const { addVocabulary, updateUserTagInFireStore, updateUserTagInFireStorePrivate } = useFireStore()
 
     //handle Reset ErrorState
     const handleOnChange = () => dispatch({ type: 'RESET_ERROR' })
 
     // add's user Tag List
-    const addTagToUserTagList = (tag) => {
-        if (user.tags) {
-            if (!user.tags.includes(tag)) {
-                user.tags.unshift(tag)
-                dispatchRedux(updateUserTag(user.tags)) // update in frontEnd
-                updateUserTagInFireStore(user.uid, user.tags) //update in BE
-                    .catch(err => console.log(err))
+    const addTagToUserTagList = (tag, privacyType) => {
+        if (privacyType === 'public') {
+            if (user.tags) {
+                if (!user.tags.includes(tag)) {
+                    user.tags.unshift(tag)
+                    dispatchRedux(updateUserTag(user.tags)) // update in frontEnd
+                    updateUserTagInFireStore(user.uid, user.tags) //update in BE
+                        .catch(err => console.log(err))
+                }
+            } else {
+                user.tags = [tag]
+                dispatchRedux(updateUserTag(user.tags)) //Update in FE
+                updateUserTagInFireStore(user.uid, user.tags) //Update in BE
             }
-        } else {
-            user.tags = [tag]
-            dispatchRedux(updateUserTag(user.tags)) //Update in FE
-            updateUserTagInFireStore(user.uid, user.tags) //Update in BE
+        } else if (privacyType === 'private') {
+
+            if (user.privateTags) {
+                console.log('dooin it')
+                if (!user.privateTags.includes(tag)) {
+                    user.privateTags.unshift(tag)
+                    dispatchRedux(updateUserTag(user.privateTags)) // update in frontEnd
+                    updateUserTagInFireStorePrivate(user.uid, user.privateTags) //update in BE
+                        .catch(err => console.log(err))
+                }
+            } else {
+                user.privateTags = [tag]
+                dispatchRedux(updateUserTag(user.privateTags)) //Update in FE
+                updateUserTagInFireStorePrivate(user.uid, user.privateTags) //Update in BE
+            }
         }
+
     }
 
     // handleFormSubmit 95-98.validate data, 100-110.add data to fire store,102-105 add to local reduxStore if its public data.
@@ -126,7 +144,7 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
             })
             .catch(err => console.error(err.message))
 
-        addTagToUserTagList(data.tag)
+        addTagToUserTagList(data.tag, data.privacyType)
 
 
     }

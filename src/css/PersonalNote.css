@@ -1,0 +1,26 @@
+.personalTags {
+  display: flex;
+  max-width: 600px;
+  margin: auto;
+  background-color: white;
+  padding: 0.2rem 0.3rem;
+  box-shadow: rgba(30, 20, 20, 0.1) 0px 4px 12px;
+  overflow-x: scroll;
+}
+.personalTags::-webkit-scrollbar {
+  display: none !important;
+}
+.PersonalTag__Value {
+  padding: 0.2rem 0.3rem;
+  margin: 0.2rem 0.3rem;
+  box-shadow: rgba(30, 20, 20, 0.1) 0px 4px 12px;
+  font-weight: 400;
+
+  border-radius: 15px;
+  cursor: pointer;
+}
+.PersonalTag__Value.active {
+  background-color: teal;
+  font-weight: 500;
+  color: white;
+}

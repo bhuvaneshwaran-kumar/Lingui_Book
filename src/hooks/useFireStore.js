@@ -61,7 +61,20 @@ const useFireStore = () => {
     const updateUserTagInFireStore = (uid, data) => {
         return db.collection('users').doc(uid).set({ 'tags': data }, { merge: true })
     }
+    const updateUserTagInFireStorePrivate = (uid, data) => {
+        return db.collection('users').doc(uid).set({ 'privateTags': data }, { merge: true })
+    }
 
+
+    // get PersonalPost
+    const getUsersTagPost = (isPublic, uid, tagName) => {
+        console.log(isPublic, uid, tagName)
+        return db.collection(isPublic ? 'public' : 'private').where('uid', '==', uid).where('tag', '==', tagName).orderBy('createdAt', 'desc').get()
+    }
+
+    const getUsersTagPostAfter = (isPublic, uid, doc) => {
+        return db.collection(isPublic ? 'public' : 'private').where('uid', '==', uid).where('tag', '==', doc.tag).orderBy('createdAt', 'desc').startAfter(doc.createdAt).limit(10).get()
+    }
 
     // db.collection('public').get()
     //     .then(docs => console.log(`length  + ${docs.size}`))
@@ -70,7 +83,7 @@ const useFireStore = () => {
         getPublicNotes, getPublicNotesAfter,
         updateSavedSetInNote, addUserSavedList, removeUserSavedList,
         getUserSavedList, getUserSavedListAfter, updateLikeListInNote,
-        incrementLikeCountInNote, decrementLikeCountInNote, getUsersTag, updateUserTagInFireStore
+        incrementLikeCountInNote, decrementLikeCountInNote, getUsersTag, updateUserTagInFireStore, getUsersTagPost, getUsersTagPostAfter, updateUserTagInFireStorePrivate
     }
 
 }
