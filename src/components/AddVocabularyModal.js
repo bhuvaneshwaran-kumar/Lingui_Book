@@ -88,7 +88,7 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
                 }
             } else {
                 user.tags = [tag]
-                dispatchRedux(updateUserTag(user.tags)) //Update in FE
+                dispatchRedux(updateUserTag({ tags: user.tags })) //Update in FE
                 updateUserTagInFireStore(user.uid, user.tags) //Update in BE
             }
         } else if (privacyType === 'private') {
@@ -97,7 +97,7 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
                 console.log('dooin it')
                 if (!user.privateTags.includes(tag)) {
                     user.privateTags.unshift(tag)
-                    dispatchRedux(updateUserTag(user.privateTags)) // update in frontEnd
+                    dispatchRedux(updateUserTag({ tags: user.privateTags })) // update in frontEnd
                     updateUserTagInFireStorePrivate(user.uid, user.privateTags) //update in BE
                         .catch(err => console.log(err))
                 }
