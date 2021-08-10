@@ -1,15 +1,16 @@
-import React from 'react'
-import { CardHeader, Avatar, Divider, Tooltip } from '@material-ui/core'
+import { Avatar, CardHeader, Divider, Tooltip } from '@material-ui/core';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateHomePageNote } from '../../actions/index';
+import LikeIcon from './Like';
+import SaveIcon from './Save';
 
 
-import { useSelector, useDispatch } from 'react-redux';
-import { updateHomePageNote } from '../../actions/index'
-
-import SaveIcon from './Save'
-import LikeIcon from './Like'
-function Card({ noteData, innerRef, isSavedPage }) {
+function Card({ noteData, innerRef, isSavedPage, isPersonal }) {
 
     let createdAtLocal = noteData.createdAt.toDate()?.toString()?.slice(0, 16)
+
+    console.log(Object.keys(noteData))
 
     const user = useSelector(store => store.user)
     const dispatch = useDispatch()

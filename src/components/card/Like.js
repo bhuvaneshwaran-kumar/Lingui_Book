@@ -7,6 +7,9 @@ import { IconButton } from '@material-ui/core'
 
 function Like({ noteData, user, dispatch, updateHomePageNote }) {
 
+    console.log(noteData.id)
+
+
     const [isLiked, setIsLiked] = useState(() => {
         if (noteData.likeSet) {
             return noteData.likeSet.includes(user.uid)
@@ -44,7 +47,10 @@ function Like({ noteData, user, dispatch, updateHomePageNote }) {
             // nobody liked this Note Yet.
             setIsLiked(true);
             noteData.likeSet = [user.uid];
-            updateLikeListInNote(noteData.id, { likeSet: noteData.likeSet })
+            updateLikeListInNote(noteData.id, { likeSet: noteData.likeSet }).catch(err => {
+                console.log(noteData.id)
+                console.log(err.message);
+            })
             incrementLikeCountInNote(noteData.id);
             noteData.likeCount = 1;
         }

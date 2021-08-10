@@ -16,11 +16,7 @@ function SavedPage() {
 
     const [hasMore, setHasMore] = useState(true)
 
-    // convert firebase timeStamp to readable format
-    const convertTimeStamp = (data) => data.map(data => ({
-        ...data,
-        createdAtLocal: data.createdAt.toDate()?.toString()?.slice(0, 16)
-    }))
+
 
     // fetch the data from fireStore based on cursor data passed as a argument.
     function getPaginateddata(doc) {
@@ -28,7 +24,6 @@ function SavedPage() {
             .then((docs) => {
                 if (docs.docs.length <= 0) return setHasMore(false)
                 let data = docs.docs.map(data => ({ id: data.id, ...data.data(), savedSet: [user.uid] }))
-                // data = convertTimeStamp(data)
                 setLoadingPageState(prev => [...prev, ...data])
             })
             .catch(err => console.error(err))
@@ -61,8 +56,6 @@ function SavedPage() {
                 // console.log(docs.docs)
                 if (docs.docs.length <= 0) return setHasMore(false)
                 let data = docs.docs.map(data => ({ id: data.id, ...data.data(), savedSet: [user.uid] }))
-                // data = convertTimeStamp(data)
-
                 setLoadingPageState(prev => [...prev, ...data])
 
             })

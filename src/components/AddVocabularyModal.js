@@ -1,9 +1,9 @@
-import React, { useRef, useReducer, useEffect } from 'react'
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, FormControlLabel, Checkbox } from '@material-ui/core'
-import { serverTimeStamp } from '../firebase'
+import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControlLabel, TextField } from '@material-ui/core'
+import React, { useReducer, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { updateHomePageByPrepand, updateUserTag } from '../actions/index'
+import { serverTimeStamp } from '../firebase'
 import useFireStore from '../hooks/useFireStore'
-import { updateHomePageByAppend, updateHomePageByPrepand, updateUserTag } from '../actions/index'
 
 
 function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSuccessMessage }) {
@@ -140,20 +140,13 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
                                 id: doc.id,
                                 ...doc.data()
                             }))
-
                         dispatchRedux(updateHomePageByPrepand(dataRes[0]))
                         handleColseVocabulary()
                         setShowSuccessMessage(true)
-
                     })
-
-
-
             })
             .catch(err => console.error(err.message))
         addTagToUserTagList(data.tag, data.privacyType)
-
-
     }
 
     // of meaning and example TextFiels.

@@ -70,7 +70,6 @@ const useFireStore = () => {
 
     // get PersonalPost
     const getUsersTagPost = (isPublic, uid, tagName) => {
-        console.log(isPublic, uid, tagName)
         return db.collection(isPublic ? 'public' : 'private').where('uid', '==', uid).where('tag', '==', tagName).orderBy('createdAt', 'desc').get()
     }
 

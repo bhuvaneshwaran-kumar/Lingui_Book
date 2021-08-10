@@ -1,15 +1,15 @@
+import { LinearProgress } from '@material-ui/core';
 import { useEffect, useState } from 'react';
-import { auth } from './firebase'
-import { useDispatch, useSelector } from 'react-redux'
-import { setUser } from './actions/index'
-import { LinearProgress } from '@material-ui/core'
-import Nav from './components/navBar/Nav'
-import Login from './components/Login'
-import HomePage from './pages/HomePage'
-import SavedPage from './pages/SavedPage'
+import { useDispatch, useSelector } from 'react-redux';
+import { Route, Switch } from 'react-router-dom';
+import { setUser } from './actions/index';
+import Login from './components/Login';
+import Nav from './components/navBar/Nav';
 import PersonalNote from './components/personalNote/PersonalNote';
-import { Switch, Route } from 'react-router-dom'
+import { auth } from './firebase';
 import useFireStore from './hooks/useFireStore';
+import HomePage from './pages/HomePage';
+import SavedPage from './pages/SavedPage';
 function App() {
 
   const [loading, setLoading] = useState(true)
@@ -18,12 +18,6 @@ function App() {
 
 
   const { getUsersTag } = useFireStore()
-  // useEffect(() => {
-  //   console.log(user?.name + ' is logged in')
-  // }, [user])
-
-
-
 
   // will listen to user auth events.
   useEffect(() => {
@@ -41,15 +35,12 @@ function App() {
         getUsersTag(user.uid)
           .then((doc) => {
             let tagsData = doc.data()
-
             data.tags = tagsData.tags || []
             data.privateTags = tagsData.privateTags || []
-
             dispatch(setUser(data))
           })
           .catch(err => console.log(err))
 
-        // console.log('tagData', data)
       } else {
         dispatch(setUser(null))
       }
