@@ -1,9 +1,9 @@
-import React, { useRef, useReducer } from 'react'
+import React, { useRef, useReducer, useEffect } from 'react'
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, FormControlLabel, Checkbox } from '@material-ui/core'
 import { serverTimeStamp } from '../firebase'
 import { useDispatch, useSelector } from 'react-redux'
 import useFireStore from '../hooks/useFireStore'
-import { updateHomePageByPrepand, updateUserTag } from '../actions/index'
+import { updateHomePageByAppend, updateHomePageByPrepand, updateUserTag } from '../actions/index'
 
 
 function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSuccessMessage }) {
@@ -71,7 +71,7 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
     const user = useSelector(store => store.user)
 
     // Custom Hook
-    const { addVocabulary, updateUserTagInFireStore, updateUserTagInFireStorePrivate } = useFireStore()
+    const { addVocabulary, updateUserTagInFireStore, updateUserTagInFireStorePrivate, getPublicNotesAfterListener } = useFireStore()
 
     //handle Reset ErrorState
     const handleOnChange = () => dispatch({ type: 'RESET_ERROR' })
@@ -97,7 +97,7 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
                 console.log('dooin it')
                 if (!user.privateTags.includes(tag)) {
                     user.privateTags.unshift(tag)
-                    dispatchRedux(updateUserTag({ tags: user.privateTags })) // update in frontEnd
+                    dispatchRedux(updateUserTag({ privateTags: user.privateTags })) // update in frontEnd
                     updateUserTagInFireStorePrivate(user.uid, user.privateTags) //update in BE
                         .catch(err => console.log(err))
                 }
@@ -115,10 +115,10 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
         e.preventDefault();
         let privacy = formRef.current.privacy.checked ? formRef.current.privacy.value : 'private'
         const data = {
-            word: formRef.current.word.value,
-            tag: formRef.current.tag.value,
-            meaning: formRef.current.meaning.value,
-            example: formRef.current.example.value,
+            word: formRef.current.word.value.trim(),
+            tag: formRef.current.tag.value.trim(),
+            meaning: formRef.current.meaning.value.trim().replaceAll('\n\n\n\n\n\n\n\n\n', ''),
+            example: formRef.current.example.value.trim().replaceAll('\n\n\n\n\n\n\n\n\n', ''),
             createdAt: serverTimeStamp(),
             uid: user.uid,
             createrName: user.name,
@@ -131,19 +131,26 @@ function AddVocabulary({ isAddVocabularyOpen, handleColseVocabulary, setShowSucc
         if (data.meaning === '') return dispatch({ type: 'ERROR_MEANING' })
         if (data.example === '') return dispatch({ type: 'ERROR_EXAMPLE' })
 
-
         addVocabulary(data)
-            .then((docs) => {
-                if (data.privacyType === 'public') {
-                    data.id = docs.id
-                    data.createdAtLocal = new Date().toDateString()
-                    dispatchRedux(updateHomePageByPrepand(data))
-                }
-                handleColseVocabulary()
-                setShowSuccessMessage(true)
+            .then(() => {
+                getPublicNotesAfterListener()
+                    .then(docs => {
+                        let dataRes = docs.docs.map(doc => (
+                            {
+                                id: doc.id,
+                                ...doc.data()
+                            }))
+
+                        dispatchRedux(updateHomePageByPrepand(dataRes[0]))
+                        handleColseVocabulary()
+                        setShowSuccessMessage(true)
+
+                    })
+
+
+
             })
             .catch(err => console.error(err.message))
-
         addTagToUserTagList(data.tag, data.privacyType)
 
 

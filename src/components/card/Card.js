@@ -9,6 +9,8 @@ import SaveIcon from './Save'
 import LikeIcon from './Like'
 function Card({ noteData, innerRef, isSavedPage }) {
 
+    let createdAtLocal = noteData.createdAt.toDate()?.toString()?.slice(0, 16)
+
     const user = useSelector(store => store.user)
     const dispatch = useDispatch()
 
@@ -22,24 +24,24 @@ function Card({ noteData, innerRef, isSavedPage }) {
                     </Tooltip>
                 }
                 title={`${noteData.createrName}`}
-                subheader={`${noteData.createdAtLocal}`}
+                subheader={`${createdAtLocal}`}
             />
 
 
             <div className="home__cardRow">
                 <p className="home__cardRow__heading one">Word</p>
-                <p>{noteData.word.trim()}</p>
+                <p>{noteData.word}</p>
             </div>
             <Divider variant='middle' />
             <div className="home__cardRow">
                 <p className="home__cardRow__heading two">Meaning</p>
-                <pre >{noteData.meaning.trim()}</pre>
+                <pre >{noteData.meaning}</pre>
             </div>
             <Divider variant='middle' />
 
             <div className="home__cardRow">
                 <p className="home__cardRow__heading three">Example</p>
-                <pre>{noteData.example.trim().replaceAll('\n\n\n\n\n\n\n\n\n', '')}</pre>
+                <pre>{noteData.example}</pre>
             </div>
             <Divider />
             <div className="home__cardRow bottom" style={{ justifyContent: isSavedPage && 'flex-end' }}>

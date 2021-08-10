@@ -28,7 +28,7 @@ function HomePage() {
             .then((docs) => {
                 if (docs.docs.length <= 0) return setHasMore(false)
                 let data = docs.docs.map(data => ({ id: data.id, ...data.data() }))
-                data = convertTimeStamp(data)
+                // data = convertTimeStamp(data)
                 dispatch(updateHomePageByAppend(data))
             })
     }
@@ -59,7 +59,7 @@ function HomePage() {
                 .then((docs) => {
                     if (docs.docs.length <= 0) return setHasMore(false)
                     let data = docs.docs.map(data => ({ id: data.id, ...data.data() }))
-                    data = convertTimeStamp(data)
+                    // data = convertTimeStamp(data)
                     dispatch(updateHomePageByAppend(data))
                 })
                 .catch(err => alert(err.message))

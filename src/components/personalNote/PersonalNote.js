@@ -92,6 +92,8 @@ function PersonalNote() {
                 setNotesData(data)
             }).catch(err => console.log(err))
         }
+
+
     }, [currentTag])
 
 

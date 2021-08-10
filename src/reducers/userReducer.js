@@ -3,7 +3,7 @@ import { SET_USER, UPDATE_USER_TAG } from "../actions";
 const initialState = null
 
 const reducer = (state = initialState, action) => {
-    console.log(state, action);
+    // console.log(state, action);
     switch (action.type) {
         case SET_USER:
             return action.payload

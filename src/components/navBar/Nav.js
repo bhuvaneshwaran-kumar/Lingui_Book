@@ -49,12 +49,14 @@ function Nav() {
                 </Tooltip>
 
                 <Typography variant="h6" className="nav__logoText">
-                    <span style={{ color: "#4285F4" }}>N</span>
-                    <span style={{ color: "#DB4437" }}>o</span>
-                    <span style={{ color: "#F4B400" }}>t</span>
-                    <span style={{ color: "#4285F4" }}>e</span>
+                    <span style={{ color: "#4285F4" }}>L</span>
+                    <span style={{ color: "#DB4437" }}>i</span>
+                    <span style={{ color: "#4285F4" }}>n</span>
+                    <span style={{ color: "#F4B400" }}>g</span>
+                    <span style={{ color: "#4285F4" }}>u</span>
+                    <span style={{ color: "#DB4437" }}>i</span>
                     &nbsp;
-                    <span className="nav__logoText2">Gram</span>
+                    <span className="nav__logoText2">Book</span>
                 </Typography>
             </div>
 

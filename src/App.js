@@ -49,7 +49,7 @@ function App() {
           })
           .catch(err => console.log(err))
 
-        console.log('tagData', data)
+        // console.log('tagData', data)
       } else {
         dispatch(setUser(null))
       }
@@ -57,6 +57,9 @@ function App() {
     })
     return unsubscribe  // eslint-disable-next-line
   }, [dispatch])
+
+
+
 
   return (
     <>

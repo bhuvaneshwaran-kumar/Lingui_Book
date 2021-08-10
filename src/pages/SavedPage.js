@@ -28,7 +28,7 @@ function SavedPage() {
             .then((docs) => {
                 if (docs.docs.length <= 0) return setHasMore(false)
                 let data = docs.docs.map(data => ({ id: data.id, ...data.data(), savedSet: [user.uid] }))
-                data = convertTimeStamp(data)
+                // data = convertTimeStamp(data)
                 setLoadingPageState(prev => [...prev, ...data])
             })
             .catch(err => console.error(err))
@@ -61,7 +61,7 @@ function SavedPage() {
                 // console.log(docs.docs)
                 if (docs.docs.length <= 0) return setHasMore(false)
                 let data = docs.docs.map(data => ({ id: data.id, ...data.data(), savedSet: [user.uid] }))
-                data = convertTimeStamp(data)
+                // data = convertTimeStamp(data)
 
                 setLoadingPageState(prev => [...prev, ...data])
 

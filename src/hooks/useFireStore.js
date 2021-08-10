@@ -15,6 +15,8 @@ const useFireStore = () => {
     // paginated query based on last elm createdAt as a cursor in redux homePage store.
     const getPublicNotesAfter = (doc) => db.collection('public').orderBy('createdAt', 'desc').startAfter(doc.createdAt).limit(10).get()
 
+    const getPublicNotesAfterListener = (doc) => db.collection('public').orderBy('createdAt', 'desc').limit(1).get()
+
     // update savedSet in public notes.
     const updateSavedSetInNote = (docId, data) => db.collection('public').doc(docId).update({ savedSet: data });
 
@@ -83,7 +85,7 @@ const useFireStore = () => {
         getPublicNotes, getPublicNotesAfter,
         updateSavedSetInNote, addUserSavedList, removeUserSavedList,
         getUserSavedList, getUserSavedListAfter, updateLikeListInNote,
-        incrementLikeCountInNote, decrementLikeCountInNote, getUsersTag, updateUserTagInFireStore, getUsersTagPost, getUsersTagPostAfter, updateUserTagInFireStorePrivate
+        incrementLikeCountInNote, decrementLikeCountInNote, getUsersTag, updateUserTagInFireStore, getUsersTagPost, getUsersTagPostAfter, updateUserTagInFireStorePrivate, getPublicNotesAfterListener
     }
 
 }
