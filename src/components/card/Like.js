@@ -7,8 +7,6 @@ import { IconButton } from '@material-ui/core'
 
 function Like({ noteData, user, dispatch, updateHomePageNote }) {
 
-    console.log(noteData.id)
-
 
     const [isLiked, setIsLiked] = useState(() => {
         if (noteData.likeSet) {

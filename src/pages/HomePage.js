@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import useFireStore from '../hooks/useFireStore'
 import '../css/HomePage.css'
 import Card from '../components/card/Card'
+import AboutCard from '../components/card/AboutCard'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateHomePageByAppend } from '../actions/index'
 import Loader from '../components/Loader'
@@ -60,10 +61,19 @@ function HomePage() {
         // eslint-disable-next-line
     }, [])
 
+    let linguiBook = {
+        createdAtLocal: 'Aug 2021',
+        createrPhotoURL: 'https://avatars.githubusercontent.com/u/58076602?v=4',
+        createrName: 'Lungui Book',
+        word: `Hello there, my friend. We're all trying to improve our vocabulary via the internet. But, when we do so, we easily get distracted by annoying posts or advertisements. 
+But don't worry; that's exactly why I'm here - to get rid of all the distractions.
+I'm LunguiBook, a social media platform made to Improve and discover vocabulary.`
+    }
 
 
     return (
         <div className="home">
+            <AboutCard noteData={linguiBook} isSavedPage={true} />
             {
                 homePageState.map((noteData, index) => {
                     if (homePageState.length === index + 1) {

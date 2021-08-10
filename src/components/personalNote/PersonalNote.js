@@ -6,6 +6,7 @@ import Card from '../card/Card'
 import NavBarPersonalNote from '../navBar/NavPersonalNote'
 import PersonalTags from './PersonalTags'
 import Loader from '../Loader'
+import Welcome from '../WelCome'
 function PersonalNote() {
 
     const { getUsersTagPost, getUsersTagPostAfter } = useFireStore()
@@ -112,6 +113,9 @@ function PersonalNote() {
                 }
                 {
                     hasMore && <Loader />
+                }
+                {
+                    !hasMore && !notesData.length && <Welcome text="No posts to fetch." />
                 }
             </div>
         </div>

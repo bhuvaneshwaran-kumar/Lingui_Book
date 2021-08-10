@@ -6,11 +6,12 @@ import LikeIcon from './Like';
 import SaveIcon from './Save';
 
 
-function Card({ noteData, innerRef, isSavedPage, isPersonal }) {
+function Card({ noteData, innerRef, isSavedPage }) {
 
-    let createdAtLocal = noteData.createdAt.toDate()?.toString()?.slice(0, 16)
+    console.log(typeof noteData.createdAt)
 
-    console.log(Object.keys(noteData))
+    let createdAtLocal = noteData?.createdAt?.toDate()?.toString()?.slice(0, 16) || noteData.createdAtLocal
+
 
     const user = useSelector(store => store.user)
     const dispatch = useDispatch()

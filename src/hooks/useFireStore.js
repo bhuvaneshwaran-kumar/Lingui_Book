@@ -67,7 +67,6 @@ const useFireStore = () => {
         return db.collection('users').doc(uid).set({ 'privateTags': data }, { merge: true })
     }
 
-
     // get PersonalPost
     const getUsersTagPost = (isPublic, uid, tagName) => {
         return db.collection(isPublic ? 'public' : 'private').where('uid', '==', uid).where('tag', '==', tagName).orderBy('createdAt', 'desc').get()

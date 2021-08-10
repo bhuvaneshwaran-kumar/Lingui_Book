@@ -5,6 +5,7 @@ import '../css/HomePage.css'
 import Card from '../components/card/Card'
 import { useSelector } from 'react-redux'
 import Loader from '../components/Loader'
+import Welcome from '../components/WelCome'
 function SavedPage() {
 
     const { getUserSavedList, getUserSavedListAfter } = useFireStore()
@@ -80,6 +81,9 @@ function SavedPage() {
             }
             {
                 hasMore && <Loader />
+            }
+            {
+                !hasMore && !loadingPageState.length && < Welcome text="Go to Home Page and start Saving your favorites posts." />
             }
         </div>
     )
