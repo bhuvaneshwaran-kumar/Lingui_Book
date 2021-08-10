@@ -60,14 +60,23 @@ function PersonalNote() {
 
 
     useEffect(() => {
+        console.log('switch', user)
         const getPublicTag = () => {
             // console.log(Object.keys(user)) //Mani fixed it❤🔥.
-            if (!user.tags.length) return setHasMore(false)
+            if (!user.tags.length) {
+                setCurretTag(null)
+                setPersonalTag([])
+                return setHasMore(false)
+            }
             setPersonalTag(user.tags)
             setCurretTag(user?.tags[0])
         }
         const getPrivateTag = async () => {
-            if (!user.privateTags.length) return setHasMore(false)
+            if (!user.privateTags.length) {
+                setCurretTag(null)
+                setPersonalTag([])
+                return setHasMore(false)
+            }
             setPersonalTag(user.privateTags)
             setCurretTag(user.privateTags[0])
         }
@@ -92,10 +101,12 @@ function PersonalNote() {
             }).catch(err => console.log(err))
         } else {
             setHasMore(false)
+            setNotesData([])
+
         }
 
         // eslint-disable-next-line
-    }, [currentTag])
+    }, [currentTag, isPublic])
 
     return (
         <div className="PersonalPost">
