@@ -35,8 +35,8 @@ function App() {
         getUsersTag(user.uid)
           .then((doc) => {
             let tagsData = doc.data()
-            data.tags = tagsData.tags || []
-            data.privateTags = tagsData.privateTags || []
+            data.tags = tagsData?.tags || []
+            data.privateTags = tagsData?.privateTags || []
             dispatch(setUser(data))
           })
           .catch(err => console.log(err))

@@ -17,7 +17,7 @@ function PersonalNote() {
 
     const [isPublic, setIsPublic] = useState(true)
     const [personalTag, setPersonalTag] = useState([])
-    const [currentTag, setCurretTag] = useState('')
+    const [currentTag, setCurretTag] = useState(null)
     const [notesData, setNotesData] = useState([])
 
 
@@ -62,10 +62,12 @@ function PersonalNote() {
     useEffect(() => {
         const getPublicTag = () => {
             // console.log(Object.keys(user)) //Mani fixed it❤🔥.
+            if (!user.tags.length) return setHasMore(false)
             setPersonalTag(user.tags)
             setCurretTag(user?.tags[0])
         }
         const getPrivateTag = async () => {
+            if (!user.privateTags.length) return setHasMore(false)
             setPersonalTag(user.privateTags)
             setCurretTag(user.privateTags[0])
         }
@@ -82,12 +84,14 @@ function PersonalNote() {
     useEffect(() => {
         setNotesData([])
         setHasMore(true)
-        if (currentTag !== '') {
+        if (currentTag) {
             getUsersTagPost(isPublic, user.uid, currentTag).then((docs) => {
                 if (docs.docs.length <= 0) return setHasMore(false)
                 let data = docs.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
                 setNotesData(data)
             }).catch(err => console.log(err))
+        } else {
+            setHasMore(false)
         }
 
         // eslint-disable-next-line

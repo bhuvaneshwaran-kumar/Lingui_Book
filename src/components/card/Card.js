@@ -8,7 +8,6 @@ import SaveIcon from './Save';
 
 function Card({ noteData, innerRef, isSavedPage }) {
 
-    console.log(typeof noteData.createdAt)
 
     let createdAtLocal = noteData?.createdAt?.toDate()?.toString()?.slice(0, 16) || noteData.createdAtLocal
 
