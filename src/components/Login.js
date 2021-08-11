@@ -36,7 +36,7 @@ function Login() {
                     <span style={{ color: "#F4B400" }}>g</span>
                     <span style={{ color: "#4285F4" }}>u</span>
                     <span style={{ color: "#DB4437" }}>i</span>
-                    &nbsp;
+
                     <span className="nav__logoText2">Book</span>
                 </Typography>
                 <Button variant="contained" color="primary" className="" onClick={handleLogin}>Sign In With Google</Button>
