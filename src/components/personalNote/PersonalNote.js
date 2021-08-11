@@ -60,7 +60,7 @@ function PersonalNote() {
 
 
     useEffect(() => {
-        console.log('switch', user)
+        // console.log('switch', user)
         const getPublicTag = () => {
             // console.log(Object.keys(user)) //Mani fixed it❤🔥.
             if (!user.tags.length) {

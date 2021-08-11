@@ -64,10 +64,10 @@ function HomePage() {
     let linguiBook = {
         createdAtLocal: 'Aug 2021',
         createrPhotoURL: 'https://avatars.githubusercontent.com/u/58076602?v=4',
-        createrName: 'Lungui Book',
+        createrName: 'Lingui Book',
         word: `Hello there, my friend. We're all trying to improve our vocabulary via the internet. But, when we do so, we easily get distracted by annoying posts or advertisements. 
 But don't worry; that's exactly why I'm here - to get rid of all the distractions.
-I'm LunguiBook, a social media platform made to Improve and discover vocabulary.`
+I'm LinguiBook, a social media platform made to Improve and discover vocabulary.`
     }
 
 

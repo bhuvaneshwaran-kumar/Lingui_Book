@@ -30,12 +30,14 @@ function Login() {
                 <Typography variant="h5" className="login__welcomeText" ref={welcomeTextRef}>
                     Welcome&nbsp;to
                     &nbsp;
-                    <span style={{ color: "#4285F4" }}>N</span>
-                    <span style={{ color: "#DB4437" }}>o</span>
-                    <span style={{ color: "#F4B400" }}>t</span>
-                    <span style={{ color: "#4285F4" }}>e</span>
+                    <span style={{ color: "#4285F4" }}>L</span>
+                    <span style={{ color: "#DB4437" }}>i</span>
+                    <span style={{ color: "#4285F4" }}>n</span>
+                    <span style={{ color: "#F4B400" }}>g</span>
+                    <span style={{ color: "#4285F4" }}>u</span>
+                    <span style={{ color: "#DB4437" }}>i</span>
                     &nbsp;
-                    <span className="nav__logoText2">Gram</span>
+                    <span className="nav__logoText2">Book</span>
                 </Typography>
                 <Button variant="contained" color="primary" className="" onClick={handleLogin}>Sign In With Google</Button>
             </div>

@@ -38,13 +38,14 @@ function App() {
             data.tags = tagsData?.tags || []
             data.privateTags = tagsData?.privateTags || []
             dispatch(setUser(data))
+            setLoading(false)
           })
           .catch(err => console.log(err))
 
       } else {
         dispatch(setUser(null))
+        setLoading(false)
       }
-      setLoading(false)
     })
     return unsubscribe  // eslint-disable-next-line
   }, [dispatch])

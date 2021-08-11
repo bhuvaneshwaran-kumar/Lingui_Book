@@ -21,19 +21,16 @@ const useFireStore = () => {
     const updateSavedSetInNote = (docId, data) => db.collection('public').doc(docId).update({ savedSet: data });
 
     // update likeList in public notes.
-    const updateLikeListInNote = (docId, data) => {
-        return db.collection('public').doc(docId).update(data)
-    }
+    const updateLikeListInNote = (docId, data) => db.collection('public').doc(docId).update(data)
+
 
     // Increase likeCount of Public Note by +1.
-    const incrementLikeCountInNote = (docId) => {
-        return db.collection('public').doc(docId).update({ likeCount: increment(1) })
-    }
+    const incrementLikeCountInNote = (docId) => db.collection('public').doc(docId).update({ likeCount: increment(1) })
+
 
     // decrease likeCount of Public Note by -1 .
-    const decrementLikeCountInNote = (docId) => {
-        return db.collection('public').doc(docId).update({ likeCount: decrement(-1) })
-    }
+    const decrementLikeCountInNote = (docId) => db.collection('public').doc(docId).update({ likeCount: decrement(-1) })
+
 
     //Add Users saved List 
     const addUserSavedList = (publicNotedoc, uid) => {
@@ -42,27 +39,22 @@ const useFireStore = () => {
     }
 
     //remove Users saved List
-    const removeUserSavedList = (publicNotedoc, uid) => {
-        return db.collection('users').doc(uid).collection('savedList').doc(publicNotedoc.id).delete()
-    }
+    const removeUserSavedList = (publicNotedoc, uid) => db.collection('users').doc(uid).collection('savedList').doc(publicNotedoc.id).delete()
+
 
     // fetch Users saved List.
-    const getUserSavedList = (uid) => {
-        return db.collection('users').doc(uid).collection('savedList').orderBy('savedListCreatedAt', "desc").limit(10).get()
-    }
+    const getUserSavedList = (uid) => db.collection('users').doc(uid).collection('savedList').orderBy('savedListCreatedAt', "desc").limit(10).get()
+
 
     const getUserSavedListAfter = (uid, doc) => {
         return db.collection('users').doc(uid).collection('savedList').orderBy('savedListCreatedAt', "desc").startAfter(doc.savedListCreatedAt).limit(10).get()
-
     }
 
-    const getUsersTag = (uid) => {
-        return db.collection('users').doc(uid).get()
-    }
+    const getUsersTag = (uid) => db.collection('users').doc(uid).get()
 
-    const updateUserTagInFireStore = (uid, data) => {
-        return db.collection('users').doc(uid).set({ 'tags': data }, { merge: true })
-    }
+
+    const updateUserTagInFireStore = (uid, data) => db.collection('users').doc(uid).set({ 'tags': data }, { merge: true })
+
     const updateUserTagInFireStorePrivate = (uid, data) => {
         return db.collection('users').doc(uid).set({ 'privateTags': data }, { merge: true })
     }
@@ -81,9 +73,13 @@ const useFireStore = () => {
     return {
         logIn, logOut, addVocabulary,
         getPublicNotes, getPublicNotesAfter,
-        updateSavedSetInNote, addUserSavedList, removeUserSavedList,
-        getUserSavedList, getUserSavedListAfter, updateLikeListInNote,
-        incrementLikeCountInNote, decrementLikeCountInNote, getUsersTag, updateUserTagInFireStore, getUsersTagPost, getUsersTagPostAfter, updateUserTagInFireStorePrivate, getPublicNotesAfterListener
+        updateSavedSetInNote, addUserSavedList,
+        removeUserSavedList, getUserSavedList,
+        getUserSavedListAfter, updateLikeListInNote,
+        incrementLikeCountInNote, decrementLikeCountInNote,
+        getUsersTag, updateUserTagInFireStore,
+        getUsersTagPost, getUsersTagPostAfter,
+        updateUserTagInFireStorePrivate, getPublicNotesAfterListener
     }
 
 }
